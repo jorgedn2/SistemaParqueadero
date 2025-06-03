@@ -20,7 +20,7 @@ public class FormLogin extends javax.swing.JFrame {
     public FormLogin() {
         initComponents();
         this.setTitle("Sistema Parqueadero");
-        this.setSize(800, 340);
+        this.setSize(850, 340);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
