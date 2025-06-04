@@ -95,26 +95,27 @@ public ArrayList<Vehiculo> buscarVehiculoPlacaFecha(String placaPropietario, Str
 }
 
     
-    public boolean actualizar(Vehiculo objeto,int idVehiculo){
-        boolean respuesta =false;
-        Connection cn = Conexion.conectar();
-        
-        try{
-            PreparedStatement consulta = cn.prepareStatement("update tb_vehiculo set hora_salida=?,valor_pagado=?, "
-                    + "estado=? where id_vehiculo = '" + idVehiculo +"';");
-            consulta.setString(1, objeto.getHoraSalida());
-            consulta.setDouble(2, objeto.getValorPagado());
-            consulta.setString(3,objeto.getEstado());
-            
-            if(consulta.executeUpdate()>0){
-                respuesta=true;
-            }
-        }catch(SQLException e){
-            System.out.println("ERROR DE ACTUALIZACION" +e );
-            
+    public boolean actualizar(Vehiculo objeto, int idVehiculo) {
+    boolean respuesta = false;
+    Connection cn = Conexion.conectar();
+
+    try {
+        PreparedStatement consulta = cn.prepareStatement(
+            "UPDATE tb_vehiculo SET hora_salida = ?, valor_pagado = ?, estado = ? WHERE id_vehiculo = ?"
+        );
+        consulta.setString(1, objeto.getHoraSalida());
+        consulta.setDouble(2, objeto.getValorPagado());
+        consulta.setString(3, objeto.getEstado());
+        consulta.setInt(4, idVehiculo);
+
+        if (consulta.executeUpdate() > 0) {
+            respuesta = true;
         }
+    } catch (SQLException e) {
+        System.out.println("ERROR DE ACTUALIZACION: " + e.getMessage());
+    }
         
         
-        return false;
+        return respuesta;
     }
 }

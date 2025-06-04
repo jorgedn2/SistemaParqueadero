@@ -536,42 +536,43 @@ public class FormMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_buscar_placaActionPerformed
 
     private void jButton_retirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_retirarActionPerformed
-        if(jLabel_propietario.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null,"SELECCIONE UN VEHICULO");
-        }else{
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Calendar calendar= Calendar.getInstance();
-            Date date = calendar.getTime();
-            String fecha = dateFormat.format(date);
-            Vehiculo vehiculo = new Vehiculo();
-            
-            VehiculoController vehiculoController = new VehiculoController();
-            vehiculo.setHoraSalida(fecha);
-            vehiculo.setValorPagado(valorAPagar);
-            vehiculo.setEstado("EGRESADO");
-            
-            if(vehiculoController.actualizar(vehiculo, idVehiculo)){
-                JOptionPane.showMessageDialog(null,"VEHICULO RETIRADO");
-                this.cargarTablaVehiculos();
-                
-                jTextField_placa_retiro.setText("");
-                jLabel_propietario.setText("");
-                jLabel_hora_entrada.setText("00:00:00");
-                jLabel_hora_salida.setText("00:00:00");
-                jLabel_valor_pagar.setText("$ 0.00");
-                
-                ReportesController ticket = new ReportesController();
-try {
-    ticket.TicketRetiro(idVehiculo);
-} catch (SQLException e) {
-    JOptionPane.showMessageDialog(null, "Error al generar el ticket de retiro: " + e.getMessage());
-    e.printStackTrace();
-}
+        if (jLabel_propietario.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "SELECCIONE UN VEHICULO");
+    } else {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        String fecha = dateFormat.format(date);
 
-            }else{
-                System.out.println("ERRO AL ACTUALIZAR");
+        Vehiculo vehiculo = new Vehiculo();
+        VehiculoController vehiculoController = new VehiculoController();
+
+        vehiculo.setHoraSalida(fecha);
+        vehiculo.setValorPagado(valorAPagar);
+        vehiculo.setEstado("EGRESADO");
+
+        if (vehiculoController.actualizar(vehiculo, idVehiculo)) {
+            JOptionPane.showMessageDialog(null, "VEHICULO RETIRADO");
+            this.cargarTablaVehiculos();
+
+            jTextField_placa_retiro.setText("");
+            jLabel_propietario.setText("");
+            jLabel_hora_entrada.setText("00:00:00");
+            jLabel_hora_salida.setText("00:00:00");
+            jLabel_valor_pagar.setText("$ 0.00");
+
+            ReportesController ticket = new ReportesController();
+            try {
+                ticket.TicketRetiro(idVehiculo);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al generar el ticket de retiro: " + e.getMessage());
+                e.printStackTrace();
             }
+
+        } else {
+            System.out.println("ERROR AL ACTUALIZAR");
         }
+    }
     }//GEN-LAST:event_jButton_retirarActionPerformed
 
     /**
