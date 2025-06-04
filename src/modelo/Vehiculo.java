@@ -11,17 +11,21 @@ public class Vehiculo {
     private String horaSalida;
     private double valorPagado;
     private String estado;
+    private int idUsuario;
+
     
     public Vehiculo(){
-        this.idVehiculo=0;
-        this.placa="";
-        this.propietario="";
-        this.tipoVehiculo="";
-        this.horaEntrada="";
-        this.horaSalida="";
-        this.valorPagado=0.00;
-        this.estado="";
-    }
+    this.idVehiculo = 0;
+    this.placa = "";
+    this.propietario = "";
+    this.tipoVehiculo = "";
+    this.horaEntrada = "";
+    this.horaSalida = "";
+    this.valorPagado = 0.00;
+    this.estado = "";
+    this.idUsuario = 0;     
+        }
+
 
     public int getIdVehiculo() {
         return idVehiculo;
@@ -86,6 +90,15 @@ public class Vehiculo {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+    
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
 
     @Override
     public String toString() {

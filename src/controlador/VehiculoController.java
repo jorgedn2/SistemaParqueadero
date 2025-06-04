@@ -11,27 +11,32 @@ import java.util.ArrayList;
 public class VehiculoController {
     
     public boolean guardar(Vehiculo objeto){
-        boolean respuesta = false;
-        Connection cn = Conexion.conectar();
-        try{
-            PreparedStatement consulta = cn.prepareStatement("insert into tb_vehiculo values(?,?,?,?,?,?,?,?)");
-            consulta.setInt(1,0);
-            consulta.setString(2,objeto.getPlaca());
-            consulta.setString(3,objeto.getPropietario());
-            consulta.setString(4,objeto.getTipoVehiculo());
-            consulta.setString(5,objeto.getHoraEntrada());
-            consulta.setString(6,objeto.getHoraSalida());
-            consulta.setDouble(7,objeto.getValorPagado());
-            consulta.setString(8,objeto.getEstado());
-            
-            if(consulta.executeUpdate()>0){
-                respuesta=true;
-            }
-        }catch(SQLException e){
-            System.out.println("Erro al registro " +e);
+    boolean respuesta = false;
+    Connection cn = Conexion.conectar();
+    try {
+        PreparedStatement consulta = cn.prepareStatement(
+            "insert into tb_vehiculo (id_vehiculo, placa, propietario, tipo_vehiculo, hora_entrada, hora_salida, valor_pagado, estado, id_usuario) " +
+            "values (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        );
+        consulta.setInt(1, 0);
+        consulta.setString(2, objeto.getPlaca());
+        consulta.setString(3, objeto.getPropietario());
+        consulta.setString(4, objeto.getTipoVehiculo());
+        consulta.setString(5, objeto.getHoraEntrada());
+        consulta.setString(6, objeto.getHoraSalida());
+        consulta.setDouble(7, objeto.getValorPagado());
+        consulta.setString(8, objeto.getEstado());
+        consulta.setInt(9, objeto.getIdUsuario()); // NUEVO
+
+        if (consulta.executeUpdate() > 0) {
+            respuesta = true;
         }
-        return respuesta;
+    } catch (SQLException e) {
+        System.out.println("Error al registrar vehículo: " + e);
     }
+    return respuesta;
+}
+
     // metodo consulta vehiculo a buscar
     public ArrayList<Vehiculo> listaVehiculo = new ArrayList<>();
     public ArrayList buscarVehiculoPlacaFecha(String placaPropietario, String fecha){
