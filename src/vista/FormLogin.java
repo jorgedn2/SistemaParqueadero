@@ -149,12 +149,28 @@ public class FormLogin extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    //metodo de inicio de sesion
+    private void IniciarSesion() {
+    String usuarioIngresado = jTextField_usuario.getText().trim();
+    String contraseñaIngresada = jPasswordField_contraseña.getText().trim();
+
+    if (usuarioIngresado.isEmpty() || contraseñaIngresada.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Ingrese su usuario y contraseña");
+    } else {
+        UsuarioController controlUsuario = new UsuarioController();
+        Usuario usuarioAutenticado = controlUsuario.login(usuarioIngresado, contraseñaIngresada);
+
+        if (usuarioAutenticado != null) {
+            FormMenu menu = new FormMenu(usuarioAutenticado);
+            menu.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta");
+        }
+    }
+}
+    
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -162,23 +178,11 @@ public class FormLogin extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (Exception ex) {
             java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormLogin().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new FormLogin().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -195,27 +199,6 @@ public class FormLogin extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField_contraseña;
     private javax.swing.JTextField jTextField_usuario;
     // End of variables declaration//GEN-END:variables
-
-    //metodo de inicio de sesion
-    private void IniciarSesion(){
-        if(jTextField_usuario.getText().isEmpty() && jPasswordField_contraseña.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "ingrese su usuario y contraseña");
-        }else{
-            
-            UsuarioController controlUsuario = new UsuarioController();
-            Usuario usuario = new Usuario();
-            usuario.setUsuario(jTextField_usuario.getText().trim());
-            usuario.setContraseña(jPasswordField_contraseña.getText().trim());
-            if(controlUsuario.login(usuario)){
-                
-                FormMenu menu = new FormMenu();
-                menu.setVisible(true);
-                this.dispose();
-            }else{
-                JOptionPane.showMessageDialog(null, "Usuario o Clave incorrecta");
-            }
-        }
-    }
 
 
 

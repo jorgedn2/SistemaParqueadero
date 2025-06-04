@@ -36,7 +36,7 @@ public class ReportesController {
             if (rs.next()) {
                 Paragraph parrafo = new Paragraph();
                 parrafo.setAlignment(Paragraph.ALIGN_CENTER);
-                parrafo.add("Sistema de parqueadero \n grupo 9 \n\n");
+                parrafo.add("Sistema de parqueadero \n grupo 5 \n\n");
                 parrafo.setFont(FontFactory.getFont("Tahoma", 16, Font.BOLD, BaseColor.DARK_GRAY));
                 parrafo.add("____________________\n\n");
 

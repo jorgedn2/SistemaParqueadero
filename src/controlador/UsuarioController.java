@@ -8,26 +8,31 @@ import java.sql.ResultSet;
 
 public class UsuarioController {
 
-    // Método seguro para iniciar sesión
-    public boolean login(Usuario objeto) {
-        boolean respuesta = false;
-        String sql = "SELECT usuario FROM tb_usuario WHERE usuario = ? AND contraseña = ?";
+    // Método para iniciar sesión y devolver el usuario autenticado
+    public Usuario login(String usuario, String contraseña) {
+        Usuario usuarioAutenticado = null;
+        String sql = "SELECT * FROM tb_usuario WHERE usuario = ? AND contraseña = ?";
 
         try (Connection cn = Conexion.conectar();
              PreparedStatement ps = cn.prepareStatement(sql)) {
 
-            ps.setString(1, objeto.getUsuario());
-            ps.setString(2, objeto.getContraseña());
+            ps.setString(1, usuario);
+            ps.setString(2, contraseña);
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-            respuesta = true;
+                usuarioAutenticado = new Usuario();
+                usuarioAutenticado.setIdUsuario(rs.getInt("id_usuario"));
+                usuarioAutenticado.setUsuario(rs.getString("usuario"));
+                usuarioAutenticado.setContraseña(rs.getString("contraseña"));
+                usuarioAutenticado.setEstado(rs.getString("estado"));
             }
 
         } catch (SQLException e) {
             System.out.println("Error al iniciar sesión: " + e);
             JOptionPane.showMessageDialog(null, "Error al iniciar sesión");
         }
-        return respuesta;
+        return usuarioAutenticado;
     }
 }
+

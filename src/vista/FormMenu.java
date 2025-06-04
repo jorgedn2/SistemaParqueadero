@@ -18,13 +18,22 @@ import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.Usuario;
 
 public class FormMenu extends javax.swing.JFrame {
 
     private int idVehiculo = 0;
     private double valorAPagar = 0;
+    private Usuario usuarioActual;
 
+    public FormMenu(Usuario usuario) {
+        initComponents();
+        this.usuarioActual = usuario; // Guarda el usuario que inició sesión
+        this.setTitle("Menú Principal - Bienvenido " + usuarioActual.getUsuario());
+        this.setLocationRelativeTo(null);
+    }
     public FormMenu() {
+        initComponents();
         initComponents();
         this.setSize(900, 415);
         this.setLocationRelativeTo(null);
@@ -335,43 +344,50 @@ public class FormMenu extends javax.swing.JFrame {
 
     private void jButton_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_registrarActionPerformed
         String placa = jTextField_placa.getText().trim();
-        String propietario = jTextField_propietario.getText().trim();
+    String propietario = jTextField_propietario.getText().trim();
 
-        if (placa.isEmpty() || propietario.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Ingrese los datos");
+    if (placa.isEmpty() || propietario.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Ingrese los datos");
+    } else {
+        String tipo_vehiculo = jComboBox_tipo_vehiculo.getSelectedItem().toString().trim();
+        if (tipo_vehiculo.equalsIgnoreCase("Seleccione:")) {
+            JOptionPane.showMessageDialog(null, "Seleccione un tipo de vehiculo");
         } else {
-            String tipo_vehiculo = jComboBox_tipo_vehiculo.getSelectedItem().toString().trim();
-            if (tipo_vehiculo.equalsIgnoreCase("Seleccione:")) {
-                JOptionPane.showMessageDialog(null, "Seleccione un tipo de vehiculo");
+            VehiculoController controlVehiculo = new VehiculoController();
+            Vehiculo vehiculo = new Vehiculo();
+            vehiculo.setPlaca(placa);
+            vehiculo.setPropietario(propietario);
+            vehiculo.setTipoVehiculo(tipo_vehiculo);
+
+            DateFormat dateFormatFecha = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Calendar calendar = Calendar.getInstance();
+            Date date = calendar.getTime();
+            String fecha = dateFormatFecha.format(date);
+
+            vehiculo.setHoraEntrada(fecha);
+            vehiculo.setHoraSalida(null);
+            vehiculo.setEstado("INGRESADO");
+
+            // 👇 ESTA ES LA LÍNEA QUE FALTABA
+            vehiculo.setIdUsuario(usuarioActual.getIdUsuario());
+
+            // Validación
+            if (vehiculo.getIdUsuario() <= 0) {
+                JOptionPane.showMessageDialog(null, "ERROR: No se ha establecido un usuario válido.");
+                return;
+            }
+
+            if (controlVehiculo.guardar(vehiculo)) {
+                JOptionPane.showMessageDialog(null, "**Vehiculo ingresado correctamente**");
+                this.cargarTablaVehiculos();
+                jTextField_placa.setText("");
+                jTextField_propietario.setText("");
+                jComboBox_tipo_vehiculo.setSelectedItem("Seleccione:");
             } else {
-                VehiculoController controlVehiculo = new VehiculoController();
-                Vehiculo vehiculo = new Vehiculo();
-                vehiculo.setPlaca(placa);
-                vehiculo.setPropietario(propietario);
-                vehiculo.setTipoVehiculo(tipo_vehiculo);
-
-                DateFormat dateFormatFecha = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                Calendar calendar = Calendar.getInstance();
-                Date date = calendar.getTime();
-                String fecha = dateFormatFecha.format(date);
-
-                vehiculo.setHoraEntrada(fecha);
-                vehiculo.setHoraSalida(null);
-                vehiculo.setEstado("INGRESADO");
-
-                if (controlVehiculo.guardar(vehiculo)) {
-                    JOptionPane.showMessageDialog(null, "**Vehiculo ingresado correctamente**");
-
-                    this.cargarTablaVehiculos();
-
-                    jTextField_placa.setText("");
-                    jTextField_propietario.setText("");
-                    jComboBox_tipo_vehiculo.setSelectedItem("Seleccione:");
-                } else {
-                    JOptionPane.showMessageDialog(null, "ERROR, al ingresar el registro del vehiculo");
-                }
+                JOptionPane.showMessageDialog(null, "ERROR al ingresar el registro del vehiculo");
             }
         }
+    }
 
     }//GEN-LAST:event_jButton_registrarActionPerformed
 
