@@ -8,6 +8,10 @@
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
 <project name="SistemaParqueadero" default="default" basedir=".">
+    <property name="lib.dir" value="lib"/>
+<path id="project.classpath">
+    <fileset dir="${lib.dir}" includes="**/*.jar"/>
+</path>
     <description>Builds, tests, and runs the project SistemaParqueadero.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
