@@ -637,49 +637,50 @@ try {
     // End of variables declaration//GEN-END:variables
 
     private void cargarTablaVehiculos() {
-        Connection cn = Conexion.conectar();
-        DefaultTableModel model = new DefaultTableModel();
-        String sql = "select id_vehiculo,placa,propietario,tipo_vehiculo,valor_pagado,estado from tb_vehiculo";
-        Statement st;
-        try {
-            st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            this.jTable_vehiculos = new JTable(model);
-            this.jScrollPane1.setViewportView(this.jTable_vehiculos);
+    Connection cn = Conexion.conectar();
+    DefaultTableModel model = new DefaultTableModel();
+    String sql = "SELECT v.id_vehiculo, v.placa, v.propietario, v.tipo_vehiculo, v.valor_pagado, v.estado, u.usuario AS registrado_por " +
+                 "FROM tb_vehiculo v INNER JOIN tb_usuario u ON v.id_usuario = u.id_usuario";
+    Statement st;
+    try {
+        st = cn.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        this.jTable_vehiculos = new JTable(model);
+        this.jScrollPane1.setViewportView(this.jTable_vehiculos);
 
-            model.addColumn("N°");
-            model.addColumn("Placa");
-            model.addColumn("Propietario");
-            model.addColumn("Tipo de vehiculo");
-            model.addColumn("Valor pagado");
-            model.addColumn("Estado");
+        model.addColumn("N°");
+        model.addColumn("Placa");
+        model.addColumn("Propietario");
+        model.addColumn("Tipo de vehiculo");
+        model.addColumn("Valor pagado");
+        model.addColumn("Estado");
+        model.addColumn("Registrado por");
 
-            while (rs.next()) {
-                Object fila[] = new Object[6];
-                for (int i = 0; i < 6; i++) {
-                    fila[i] = rs.getObject(i + 1);
-                }
-                model.addRow(fila);
+        while (rs.next()) {
+            Object fila[] = new Object[7];
+            for (int i = 0; i < 7; i++) {
+                fila[i] = rs.getObject(i + 1);
             }
-        } catch (SQLException e) {
-            System.out.println("ERROR AL LLENAR LA TABLA DE VEHICULOS: " + e);
+            model.addRow(fila);
         }
-
-        //evento
-        jTable_vehiculos.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int fila_point = jTable_vehiculos.rowAtPoint(e.getPoint());
-                int columna_point = 0;
-
-                if (fila_point > -1) {
-                    idVehiculo = (int) model.getValueAt(fila_point, columna_point);
-                    EnviarDatosVehiculoSeleccionado(idVehiculo);
-                }
-            }
-        });
-
+    } catch (SQLException e) {
+        System.out.println("ERROR AL LLENAR LA TABLA DE VEHICULOS: " + e);
     }
+
+    //evento
+    jTable_vehiculos.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            int fila_point = jTable_vehiculos.rowAtPoint(e.getPoint());
+            int columna_point = 0;
+
+            if (fila_point > -1) {
+                idVehiculo = (int) model.getValueAt(fila_point, columna_point);
+                EnviarDatosVehiculoSeleccionado(idVehiculo);
+            }
+        }
+    });
+}
 
     //metodo que envia datos
     private void EnviarDatosVehiculoSeleccionado(int idVehiculo) {
