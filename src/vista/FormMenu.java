@@ -3,6 +3,11 @@ package vista;
 import conexion.Conexion;
 import controlador.ReportesController;
 import controlador.VehiculoController;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
@@ -16,8 +21,11 @@ import java.text.ParseException;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JPanel;
 import modelo.Usuario;
 
 public class FormMenu extends javax.swing.JFrame {
@@ -86,6 +94,11 @@ public class FormMenu extends javax.swing.JFrame {
         jTextField_propietario = new javax.swing.JTextField();
         jComboBox_tipo_vehiculo = new javax.swing.JComboBox<>();
         jButton_registrar = new javax.swing.JButton();
+        jPanel_Graficoss = new javax.swing.JPanel();
+        jButton_TipoVehiculo = new javax.swing.JButton();
+        jButton_Consulta = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel_Graficos = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -211,7 +224,7 @@ public class FormMenu extends javax.swing.JFrame {
 
         jLabel_valor_pagar.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel_valor_pagar.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel_valor_pagar.setText("$ 0.00");
+        jLabel_valor_pagar.setText("S/ 0.00");
         jPanel_retirar_vehiculo.add(jLabel_valor_pagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, 200, 30));
 
         jTabbedPane1.addTab("Retirar Vehiculo", jPanel_retirar_vehiculo);
@@ -327,6 +340,51 @@ public class FormMenu extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Registrar Vehiculo", jPanel_registrar_vehiculo);
 
+        jPanel_Graficoss.setBackground(new java.awt.Color(255, 255, 255));
+
+        jButton_TipoVehiculo.setBackground(new java.awt.Color(255, 51, 51));
+        jButton_TipoVehiculo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton_TipoVehiculo.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_TipoVehiculo.setText("Tipo Vehiculo");
+        jButton_TipoVehiculo.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jButton_TipoVehiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_TipoVehiculoActionPerformed(evt);
+            }
+        });
+        jPanel_Graficoss.add(jButton_TipoVehiculo);
+
+        jButton_Consulta.setBackground(new java.awt.Color(255, 51, 51));
+        jButton_Consulta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton_Consulta.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Consulta.setText("Consulta Mensual");
+        jButton_Consulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_ConsultaActionPerformed(evt);
+            }
+        });
+        jPanel_Graficoss.add(jButton_Consulta);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel_Graficoss.add(jPanel3);
+
+        jPanel_Graficos.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_Graficos.setMinimumSize(new java.awt.Dimension(350, 340));
+        jPanel_Graficos.setPreferredSize(new java.awt.Dimension(350, 250));
+        jPanel_Graficoss.add(jPanel_Graficos);
+
+        jTabbedPane1.addTab("Graficos", jPanel_Graficoss);
+
         jPanel2.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 600, 340));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 650, 380));
@@ -339,7 +397,7 @@ public class FormMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_cerrar_sesionActionPerformed
 
     private void jComboBox_tipo_vehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_tipo_vehiculoActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jComboBox_tipo_vehiculoActionPerformed
 
     private void jButton_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_registrarActionPerformed
@@ -559,7 +617,7 @@ public class FormMenu extends javax.swing.JFrame {
             jLabel_propietario.setText("");
             jLabel_hora_entrada.setText("00:00:00");
             jLabel_hora_salida.setText("00:00:00");
-            jLabel_valor_pagar.setText("$ 0.00");
+            jLabel_valor_pagar.setText("S/ 0.00");
 
             ReportesController ticket = new ReportesController();
             try {
@@ -574,6 +632,63 @@ public class FormMenu extends javax.swing.JFrame {
         }
     }
     }//GEN-LAST:event_jButton_retirarActionPerformed
+
+    private void jButton_TipoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_TipoVehiculoActionPerformed
+        Map<String, Double> dataMap = new LinkedHashMap<>();
+    int totalCarros = 0;
+    int totalMotos = 0;
+    StringBuilder resumenPorTipo = new StringBuilder();
+
+    try {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehiculos", "root", "");
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery("SELECT tipo_vehiculo, COUNT(*) AS cantidad FROM tb_vehiculo GROUP BY tipo_vehiculo");
+
+        while (rs.next()) {
+            String tipo = rs.getString("tipo_vehiculo");
+            int cantidad = rs.getInt("cantidad");
+
+            if (tipo.equalsIgnoreCase("Automovil")) {
+                totalCarros = cantidad;
+            } else if (tipo.equalsIgnoreCase("Motocicleta")) {
+                totalMotos = cantidad;
+            }
+
+            dataMap.put(tipo, (double) cantidad);
+        }
+
+        mostrarGraficoEnPanel(dataMap, "Cantidad por Tipo de Vehículo", resumenPorTipo.toString(), false);
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al generar gráfico de tipos de vehículos:\n" + e.getMessage());
+    }
+    }//GEN-LAST:event_jButton_TipoVehiculoActionPerformed
+
+    private void jButton_ConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ConsultaActionPerformed
+        Map<String, Double> dataMap = new LinkedHashMap<>();
+    double totalGanado = 0;
+    StringBuilder resumenPorMes = new StringBuilder();
+
+    try {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehiculos", "root", "");
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery("SELECT MONTH(hora_salida) AS mes, SUM(valor_pagado) AS total FROM tb_vehiculo WHERE estado = 'EGRESADO' GROUP BY mes ORDER BY mes");
+
+        while (rs.next()) {
+            int mes = rs.getInt("mes");
+            double total = rs.getDouble("total");
+            String nombreMes = obtenerNombreMes(mes);
+            dataMap.put(nombreMes, total);
+            totalGanado += total;
+        }
+
+        resumenPorMes.append(" TOTAL: S/").append(String.format("%.2f", totalGanado));
+        mostrarGraficoEnPanel(dataMap, "Ganancia por Mes", resumenPorMes.toString(),false);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    }//GEN-LAST:event_jButton_ConsultaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -612,6 +727,8 @@ public class FormMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton_Consulta;
+    private javax.swing.JButton jButton_TipoVehiculo;
     private javax.swing.JButton jButton_buscar;
     private javax.swing.JButton jButton_buscar_placa;
     private javax.swing.JButton jButton_cerrar_sesion;
@@ -641,6 +758,9 @@ public class FormMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_valor_pagar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel_Graficos;
+    private javax.swing.JPanel jPanel_Graficoss;
     private javax.swing.JPanel jPanel_administrar_vehiculos;
     private javax.swing.JPanel jPanel_registrar_vehiculo;
     private javax.swing.JPanel jPanel_retirar_vehiculo;
@@ -722,5 +842,85 @@ public class FormMenu extends javax.swing.JFrame {
             System.out.println("ERROR AL SELECCIONAR VEHICULO" + e);
         }
     }
+    
+    //mostrar grafico en panel
+    private void mostrarGraficoEnPanel(Map<String, Double> data, String titulo, String resumenTexto, boolean esMonto) {
+    jPanel_Graficos.removeAll();
+    jPanel_Graficos.setLayout(new BorderLayout());
+
+    JPanel panel = new JPanel() {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Graphics2D g2 = (Graphics2D) g;
+
+            int width = getWidth();
+            int height = getHeight();
+            int padding = 60;
+            int barWidth = 40;
+            int spacing = 50;
+
+            double max = data.values().stream().max(Double::compare).orElse(1.0);
+
+            int x = padding;
+
+            // Título
+            g2.setFont(new Font("SansSerif", Font.BOLD, 16));
+            g2.setColor(Color.BLACK);
+            g2.drawString(titulo, width / 2 - 80, 30);
+
+            // Dibujar barras
+            g2.setFont(new Font("SansSerif", Font.PLAIN, 12));
+            for (Map.Entry<String, Double> entry : data.entrySet()) {
+                int barHeight = (int) ((entry.getValue() / max) * (height - 120));
+                int y = height - barHeight - 40;
+
+                g2.setColor(Color.RED);
+                g2.fillRect(x, y, barWidth, barHeight);
+                g2.setColor(Color.BLACK);
+                g2.drawRect(x, y, barWidth, barHeight);
+
+                // Etiqueta: nombre + valor
+                String valorTexto = esMonto
+                    ? "S/ " + String.format("%.2f", entry.getValue())
+                    : String.valueOf(entry.getValue().intValue());
+
+                String label = entry.getKey() + " (" + valorTexto + ")";
+                int labelWidth = g2.getFontMetrics().stringWidth(label);
+                g2.drawString(label, x - (labelWidth / 2) + (barWidth / 2), height - 15);
+
+                x += barWidth + spacing;
+            }
+
+            // Resumen
+            g2.setColor(Color.BLUE);
+            g2.setFont(new Font("SansSerif", Font.BOLD, 13));
+            g2.drawString(resumenTexto, padding + 5, height - 5);
+        }
+
+        @Override
+        public java.awt.Dimension getPreferredSize() {
+            return new java.awt.Dimension(600, 300);
+        }
+    };
+
+    panel.setOpaque(true);
+    panel.setBackground(Color.WHITE);
+
+    jPanel_Graficos.add(panel, BorderLayout.CENTER);
+    jPanel_Graficos.revalidate();
+    jPanel_Graficos.repaint();
+}
+
+
+    private String obtenerNombreMes(int mes) {
+    String[] meses = {"Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"};
+    if (mes >= 1 && mes <= 12) {
+        return meses[mes - 1];
+    } else {
+        return "Desconocido";
+    }
+    }
+
 
 }
