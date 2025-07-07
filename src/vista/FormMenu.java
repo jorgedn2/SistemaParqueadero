@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -26,12 +27,21 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import modelo.Usuario;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.commons.io.output.UnsynchronizedByteArrayOutputStream;
+import org.apache.poi.ss.usermodel.ClientAnchor;
+import org.apache.poi.ss.usermodel.Drawing;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xddf.usermodel.chart.AxisCrosses;
+import org.apache.poi.xddf.usermodel.chart.AxisPosition;
+import org.apache.poi.xddf.usermodel.chart.LegendPosition;
 
 public class FormMenu extends javax.swing.JFrame {
 
@@ -760,38 +770,82 @@ public class FormMenu extends javax.swing.JFrame {
     private void jButton_ExportarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExportarExcelActionPerformed
         try {
         Connection cn = Conexion.conectar();
-        Statement st = cn.createStatement();
-        ResultSet rs = st.executeQuery("SELECT placa, propietario, tipo_vehiculo, valor_pagado, estado FROM tb_vehiculo");
 
         Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Vehiculos");
 
-        Row header = sheet.createRow(0);
+        // HOJA 1: Lista de vehículos
+        Sheet sheetVehiculos = workbook.createSheet("Vehiculos");
+        Statement st1 = cn.createStatement();
+        ResultSet rs1 = st1.executeQuery("SELECT placa, propietario, tipo_vehiculo, valor_pagado, estado FROM tb_vehiculo");
+
+        Row header = sheetVehiculos.createRow(0);
         String[] columnas = {"Placa", "Propietario", "Tipo", "Valor Pagado", "Estado"};
         for (int i = 0; i < columnas.length; i++) {
             header.createCell(i).setCellValue(columnas[i]);
         }
 
         int rowIdx = 1;
-        while (rs.next()) {
-            Row row = sheet.createRow(rowIdx++);
-            row.createCell(0).setCellValue(rs.getString("placa"));
-            row.createCell(1).setCellValue(rs.getString("propietario"));
-            row.createCell(2).setCellValue(rs.getString("tipo_vehiculo"));
-            row.createCell(3).setCellValue(rs.getDouble("valor_pagado"));
-            row.createCell(4).setCellValue(rs.getString("estado"));
+        while (rs1.next()) {
+            Row row = sheetVehiculos.createRow(rowIdx++);
+            row.createCell(0).setCellValue(rs1.getString("placa"));
+            row.createCell(1).setCellValue(rs1.getString("propietario"));
+            row.createCell(2).setCellValue(rs1.getString("tipo_vehiculo"));
+            row.createCell(3).setCellValue(rs1.getDouble("valor_pagado"));
+            row.createCell(4).setCellValue(rs1.getString("estado"));
         }
 
-        FileOutputStream out = new FileOutputStream("vehiculos_exportados.xlsx");
+        // HOJA 2: Resumen por tipo de vehículo
+        Sheet sheetResumenTipos = workbook.createSheet("Resumen Tipos");
+        Statement st2 = cn.createStatement();
+        ResultSet rs2 = st2.executeQuery("SELECT tipo_vehiculo, COUNT(*) as cantidad FROM tb_vehiculo GROUP BY tipo_vehiculo");
+
+        Row header2 = sheetResumenTipos.createRow(0);
+        header2.createCell(0).setCellValue("Tipo de Vehículo");
+        header2.createCell(1).setCellValue("Cantidad");
+
+        int rowIdx2 = 1;
+        while (rs2.next()) {
+            Row row = sheetResumenTipos.createRow(rowIdx2++);
+            row.createCell(0).setCellValue(rs2.getString("tipo_vehiculo"));
+            row.createCell(1).setCellValue(rs2.getInt("cantidad"));
+        }
+
+        // HOJA 3: Ingreso mensual
+        Sheet sheetResumenMensual = workbook.createSheet("Resumen Mensual");
+        Statement st3 = cn.createStatement();
+        ResultSet rs3 = st3.executeQuery("SELECT MONTH(hora_salida) AS mes, SUM(valor_pagado) AS total FROM tb_vehiculo WHERE estado = 'EGRESADO' GROUP BY mes ORDER BY mes");
+
+        Row header3 = sheetResumenMensual.createRow(0);
+        header3.createCell(0).setCellValue("Mes");
+        header3.createCell(1).setCellValue("Total Ganado (S/.)");
+
+        int rowIdx3 = 1;
+        while (rs3.next()) {
+            Row row = sheetResumenMensual.createRow(rowIdx3++);
+            int mes = rs3.getInt("mes");
+            double total = rs3.getDouble("total");
+
+            // Convertir número de mes a nombre
+            String[] nombresMeses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+            String nombreMes = (mes >= 1 && mes <= 12) ? nombresMeses[mes - 1] : "Desconocido";
+
+            row.createCell(0).setCellValue(nombreMes);
+            row.createCell(1).setCellValue(total);
+        }
+
+        // GUARDAR ARCHIVO
+        String ruta = System.getProperty("user.home");
+        FileOutputStream out = new FileOutputStream(ruta + "/Desktop/vehiculos_exportados.xlsx");
         workbook.write(out);
         out.close();
         workbook.close();
 
-        JOptionPane.showMessageDialog(this, "Archivo Excel generado correctamente.");
-    } catch (Exception e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error al exportar: " + e.getMessage());
-    }
+        JOptionPane.showMessageDialog(this, "Archivo Excel generado correctamente en tu escritorio.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al exportar: " + e.getMessage());
+        }
     }//GEN-LAST:event_jButton_ExportarExcelActionPerformed
 
     /**
