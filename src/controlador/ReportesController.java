@@ -5,7 +5,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 import conexion.Conexion;
-
 import javax.swing.JOptionPane;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -19,7 +18,7 @@ import java.util.Date;
 public class ReportesController {
 
     public void TicketRetiro(int idVehiculo) throws SQLException {
-        Document documento = new Document();
+        Document documento = new Document() {};
         try {
             String ruta = System.getProperty("user.home");
             PdfWriter.getInstance(documento, new FileOutputStream(ruta + "/Desktop/Ticket Parqueadero.pdf"));

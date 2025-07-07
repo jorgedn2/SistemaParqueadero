@@ -40,6 +40,7 @@ public class FormLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTextField_usuario = new javax.swing.JTextField();
         jPasswordField_contraseña = new javax.swing.JPasswordField();
+        jButton_registroUsuario = new javax.swing.JButton();
         jButton_acceder = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -57,15 +58,15 @@ public class FormLogin extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("INICIAR SESIÓN");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("CONTRASEÑA:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("USUARIO:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
 
         jTextField_usuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jTextField_usuario.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -73,7 +74,7 @@ public class FormLogin extends javax.swing.JFrame {
                 jTextField_usuarioKeyPressed(evt);
             }
         });
-        jPanel1.add(jTextField_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 240, 30));
+        jPanel1.add(jTextField_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 240, 30));
 
         jPasswordField_contraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,7 +86,16 @@ public class FormLogin extends javax.swing.JFrame {
                 jPasswordField_contraseñaKeyPressed(evt);
             }
         });
-        jPanel1.add(jPasswordField_contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 240, 30));
+        jPanel1.add(jPasswordField_contraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 240, 30));
+
+        jButton_registroUsuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton_registroUsuario.setText("REGISTRAR");
+        jButton_registroUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_registroUsuarioActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton_registroUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 240, 30));
 
         jButton_acceder.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton_acceder.setText("ACCEDER");
@@ -94,7 +104,7 @@ public class FormLogin extends javax.swing.JFrame {
                 jButton_accederActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton_acceder, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 240, 30));
+        jPanel1.add(jButton_acceder, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 240, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 300));
 
@@ -131,9 +141,9 @@ public class FormLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordField_contraseñaActionPerformed
 
-    private void jButton_accederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_accederActionPerformed
-        this.IniciarSesion();
-    }//GEN-LAST:event_jButton_accederActionPerformed
+    private void jButton_registroUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_registroUsuarioActionPerformed
+        new FormRegistroUsuario().setVisible(true);
+    }//GEN-LAST:event_jButton_registroUsuarioActionPerformed
 
     private void jTextField_usuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_usuarioKeyPressed
       if(evt.getKeyCode() == evt.VK_ENTER){
@@ -145,6 +155,10 @@ public class FormLogin extends javax.swing.JFrame {
      if(evt.getKeyCode() == evt.VK_ENTER){
         this.IniciarSesion();      }
     }//GEN-LAST:event_jPasswordField_contraseñaKeyPressed
+
+    private void jButton_accederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_accederActionPerformed
+        this.IniciarSesion();
+    }//GEN-LAST:event_jButton_accederActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,6 +201,7 @@ public class FormLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_acceder;
+    private javax.swing.JButton jButton_registroUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

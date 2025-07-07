@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,6 +28,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
 import modelo.Usuario;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class FormMenu extends javax.swing.JFrame {
 
@@ -97,6 +102,7 @@ public class FormMenu extends javax.swing.JFrame {
         jPanel_Graficoss = new javax.swing.JPanel();
         jButton_TipoVehiculo = new javax.swing.JButton();
         jButton_Consulta = new javax.swing.JButton();
+        jButton_ExportarExcel = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel_Graficos = new javax.swing.JPanel();
 
@@ -176,6 +182,11 @@ public class FormMenu extends javax.swing.JFrame {
 
         jTextField_placa_retiro.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jTextField_placa_retiro.setForeground(new java.awt.Color(0, 102, 102));
+        jTextField_placa_retiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_placa_retiroActionPerformed(evt);
+            }
+        });
         jPanel_retirar_vehiculo.add(jTextField_placa_retiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 125, 30));
 
         jButton_buscar_placa.setBackground(new java.awt.Color(0, 0, 0));
@@ -305,9 +316,17 @@ public class FormMenu extends javax.swing.JFrame {
 
         jTextField_placa.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jTextField_placa.setForeground(new java.awt.Color(0, 102, 102));
+        jTextField_placa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_placaActionPerformed(evt);
+            }
+        });
         jTextField_placa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextField_placaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_placaKeyReleased(evt);
             }
         });
         jPanel_registrar_vehiculo.add(jTextField_placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 230, 30));
@@ -365,6 +384,17 @@ public class FormMenu extends javax.swing.JFrame {
         });
         jPanel_Graficoss.add(jButton_Consulta);
 
+        jButton_ExportarExcel.setBackground(new java.awt.Color(255, 51, 51));
+        jButton_ExportarExcel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton_ExportarExcel.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_ExportarExcel.setText("Exportar");
+        jButton_ExportarExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_ExportarExcelActionPerformed(evt);
+            }
+        });
+        jPanel_Graficoss.add(jButton_ExportarExcel);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -401,7 +431,11 @@ public class FormMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox_tipo_vehiculoActionPerformed
 
     private void jButton_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_registrarActionPerformed
-        String placa = jTextField_placa.getText().trim();
+    String placa = jTextField_placa.getText().trim().toUpperCase();
+
+    if (placa.length() == 6 && !placa.contains("-")) {
+        placa = placa.substring(0, 3) + "-" + placa.substring(3);
+    }
     String propietario = jTextField_propietario.getText().trim();
 
     if (placa.isEmpty() || propietario.isEmpty()) {
@@ -545,25 +579,34 @@ public class FormMenu extends javax.swing.JFrame {
                    
                    String tiempoIngresado = rs.getString("hora_entrada");
                    Date tiempo =dateFormat.parse(tiempoIngresado);
-                   int minutosACobrar=(int)(date.getTime()-tiempo.getTime())/60000;
-                   
-                   if(rs.getString("tipo_vehiculo").equals("Automovil")){
-                       if(minutosACobrar<60){
-                           valorAPagar =0.50;
-                       }else{
-                           valorAPagar =((minutosACobrar-60)*0.01)+ 0.50;
-                       }
-                   }else if(rs.getString("tipo_vehiculo").equals("Motocicleta")){
-                       if(minutosACobrar<60){
-                           valorAPagar =0.25;
-                       }else{
-                           valorAPagar =((minutosACobrar-60)*0.01)+ 0.25;
-                       }
-                   }
+                   int minutosACobrar = (int)(date.getTime() - tiempo.getTime()) / 60000;
+                   int horas = minutosACobrar / 60;
+                   int minutosExtra = minutosACobrar % 60;
+                   if (rs.getString("tipo_vehiculo").equals("Automovil")) {
+                        if (horas == 0) {
+                           valorAPagar = 0.50;
+                        } else {
+                            // Si los minutos extra son mayores a 15, se suma una hora más
+                            if (minutosExtra > 15) {
+                                horas += 1;
+                            }
+                            valorAPagar = horas * 0.50;
+                        }
+                    } else if (rs.getString("tipo_vehiculo").equals("Motocicleta")) {
+                        if (horas == 0) {
+                            valorAPagar = 0.25;
+                        } else {
+                            if (minutosExtra > 15) {
+                                horas += 1;
+                            }
+                            valorAPagar = horas * 0.25;
+                        }
+                    }
+
                    
                    String fecha = dateFormat.format(date);
                    jLabel_hora_salida.setText(fecha);
-                   jLabel_valor_pagar.setText("$ " + valorAPagar);
+                   jLabel_valor_pagar.setText("S/ " + valorAPagar);
                    if(estado.equalsIgnoreCase("EGRESADO")){
                        jButton_retirar.setEnabled(false);
                        jLabel_info.setVisible(true);
@@ -581,7 +624,7 @@ public class FormMenu extends javax.swing.JFrame {
                    jLabel_propietario.setText("");
                    jLabel_hora_entrada.setText("00:00:00");
                    jLabel_hora_salida.setText("00:00:00");
-                   jLabel_valor_pagar.setText("$ 0.00");
+                   jLabel_valor_pagar.setText("S/ 0.00");
                }
            }catch(SQLException e){
                System.out.println("Error al buscar datos del vehiculo" + e);
@@ -690,6 +733,67 @@ public class FormMenu extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_jButton_ConsultaActionPerformed
 
+    private void jTextField_placa_retiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_placa_retiroActionPerformed
+
+    }//GEN-LAST:event_jTextField_placa_retiroActionPerformed
+
+    private void jTextField_placaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_placaActionPerformed
+
+    }//GEN-LAST:event_jTextField_placaActionPerformed
+
+    private void jTextField_placaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_placaKeyReleased
+        
+    String texto = jTextField_placa.getText().replace("-", "").toUpperCase();
+
+    if (texto.length() > 6) {
+        texto = texto.substring(0, 6); // Limita a 6 caracteres
+    }
+
+    if (texto.length() >= 3) {
+        texto = texto.substring(0, 3) + "-" + texto.substring(3);
+    }
+
+    jTextField_placa.setText(texto);
+
+    }//GEN-LAST:event_jTextField_placaKeyReleased
+
+    private void jButton_ExportarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExportarExcelActionPerformed
+        try {
+        Connection cn = Conexion.conectar();
+        Statement st = cn.createStatement();
+        ResultSet rs = st.executeQuery("SELECT placa, propietario, tipo_vehiculo, valor_pagado, estado FROM tb_vehiculo");
+
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Vehiculos");
+
+        Row header = sheet.createRow(0);
+        String[] columnas = {"Placa", "Propietario", "Tipo", "Valor Pagado", "Estado"};
+        for (int i = 0; i < columnas.length; i++) {
+            header.createCell(i).setCellValue(columnas[i]);
+        }
+
+        int rowIdx = 1;
+        while (rs.next()) {
+            Row row = sheet.createRow(rowIdx++);
+            row.createCell(0).setCellValue(rs.getString("placa"));
+            row.createCell(1).setCellValue(rs.getString("propietario"));
+            row.createCell(2).setCellValue(rs.getString("tipo_vehiculo"));
+            row.createCell(3).setCellValue(rs.getDouble("valor_pagado"));
+            row.createCell(4).setCellValue(rs.getString("estado"));
+        }
+
+        FileOutputStream out = new FileOutputStream("vehiculos_exportados.xlsx");
+        workbook.write(out);
+        out.close();
+        workbook.close();
+
+        JOptionPane.showMessageDialog(this, "Archivo Excel generado correctamente.");
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al exportar: " + e.getMessage());
+    }
+    }//GEN-LAST:event_jButton_ExportarExcelActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -728,6 +832,7 @@ public class FormMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Consulta;
+    private javax.swing.JButton jButton_ExportarExcel;
     private javax.swing.JButton jButton_TipoVehiculo;
     private javax.swing.JButton jButton_buscar;
     private javax.swing.JButton jButton_buscar_placa;
