@@ -1,18 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package vista;
 
-/**
- *
- * @author VentureDraws
- */
 public class DetalleVehiculo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form DetalleVehiculo
-     */
     public DetalleVehiculo() {
         initComponents();
         this.setSize(500,400);

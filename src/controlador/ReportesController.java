@@ -49,6 +49,8 @@ public class ReportesController {
                 contenido.setAlignment(Paragraph.ALIGN_CENTER);
                 contenido.add("Propietario: " + rs.getString("propietario") + "\n");
 
+                contenido.add("Tipo de cliente: " + rs.getString("tipo_cliente") + "\n");
+                
                 java.sql.Timestamp timestampEntrada = rs.getTimestamp("hora_entrada");
                 Time horaEntrada = new Time(timestampEntrada.getTime());
                 contenido.add("Entrada: " + horaEntrada + "\n");

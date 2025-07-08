@@ -10,7 +10,6 @@ public class FormRegistroUsuario extends javax.swing.JFrame {
 
     private JTextField txtUsuario;
     private JPasswordField txtContraseña;
-    private JComboBox<String> comboEstado;
     private JButton btnRegistrar;
 
     public FormRegistroUsuario() {
@@ -39,10 +38,6 @@ public class FormRegistroUsuario extends javax.swing.JFrame {
         JLabel lblEstado = new JLabel("Estado:");
         lblEstado.setBounds(30, 110, 100, 25);
         add(lblEstado);
-
-        comboEstado = new JComboBox<>(new String[]{"activo", "inactivo"});
-        comboEstado.setBounds(140, 110, 200, 25);
-        add(comboEstado);
 
         btnRegistrar = new JButton("Registrar Usuario");
         btnRegistrar.setBounds(110, 160, 160, 30);
@@ -106,7 +101,6 @@ public class FormRegistroUsuario extends javax.swing.JFrame {
     private void registrarUsuario() {
         String usuario = txtUsuario.getText().trim();
         String contraseña = String.valueOf(txtContraseña.getPassword()).trim();
-        String estado = comboEstado.getSelectedItem().toString();
 
         if (usuario.isEmpty() || contraseña.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
@@ -116,8 +110,6 @@ public class FormRegistroUsuario extends javax.swing.JFrame {
         Usuario nuevoUsuario = new Usuario();
         nuevoUsuario.setUsuario(usuario);
         nuevoUsuario.setContraseña(contraseña);
-        nuevoUsuario.setEstado(estado);
-
         UsuarioController controller = new UsuarioController();
         boolean registrado = controller.registrar(nuevoUsuario);
 

@@ -25,7 +25,6 @@ public class UsuarioController {
                 usuarioAutenticado.setIdUsuario(rs.getInt("id_usuario"));
                 usuarioAutenticado.setUsuario(rs.getString("usuario"));
                 usuarioAutenticado.setContraseña(rs.getString("contraseña"));
-                usuarioAutenticado.setEstado(rs.getString("estado"));
             }
 
         } catch (SQLException e) {
@@ -37,13 +36,12 @@ public class UsuarioController {
     
     
     public boolean registrar(Usuario usuario) {
-    String sql = "INSERT INTO tb_usuario (usuario, contraseña, estado) VALUES (?, ?, ?)";
+    String sql = "INSERT INTO tb_usuario (usuario, contraseña) VALUES (?, ?)";
         try (Connection cn = Conexion.conectar();
              PreparedStatement pst = cn.prepareStatement(sql)) {
 
             pst.setString(1, usuario.getUsuario());
             pst.setString(2, usuario.getContraseña());
-            pst.setString(3, usuario.getEstado());
 
             return pst.executeUpdate() > 0;
 

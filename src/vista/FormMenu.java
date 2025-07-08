@@ -76,22 +76,17 @@ public class FormMenu extends javax.swing.JFrame {
         jButton_cerrar_sesion = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel_retirar_vehiculo = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel_info = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jTextField_placa_retiro = new javax.swing.JTextField();
-        jButton_buscar_placa = new javax.swing.JButton();
-        jButton_retirar = new javax.swing.JButton();
-        jLabel_propietario = new javax.swing.JLabel();
-        jLabel_hora_entrada = new javax.swing.JLabel();
-        jLabel_footer = new javax.swing.JLabel();
-        jLabel_hora_salida = new javax.swing.JLabel();
-        jLabel_valor_pagar = new javax.swing.JLabel();
+        jPanel_registrar_vehiculo = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jtext4 = new javax.swing.JLabel();
+        jTextField_placa = new javax.swing.JTextField();
+        jTextField_propietario = new javax.swing.JTextField();
+        jComboBox_tipo_vehiculo = new javax.swing.JComboBox<>();
+        jButton_registrar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jCombo_tipoCliente = new javax.swing.JComboBox<>();
         jPanel_administrar_vehiculos = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -100,21 +95,29 @@ public class FormMenu extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_vehiculos = new javax.swing.JTable();
         jButton_buscar = new javax.swing.JButton();
-        jPanel_registrar_vehiculo = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField_placa = new javax.swing.JTextField();
-        jTextField_propietario = new javax.swing.JTextField();
-        jComboBox_tipo_vehiculo = new javax.swing.JComboBox<>();
-        jButton_registrar = new javax.swing.JButton();
         jPanel_Graficoss = new javax.swing.JPanel();
         jButton_TipoVehiculo = new javax.swing.JButton();
         jButton_Consulta = new javax.swing.JButton();
+        jButton_tipoCliente = new javax.swing.JButton();
         jButton_ExportarExcel = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel_Graficos = new javax.swing.JPanel();
+        jPanel_retirar_vehiculo = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel_info = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jTextField_placa_retiro = new javax.swing.JTextField();
+        jButton_buscar_placa = new javax.swing.JButton();
+        jButton_retirar = new javax.swing.JButton();
+        jLabel_hora_entrada = new javax.swing.JLabel();
+        jLabel_footer = new javax.swing.JLabel();
+        jLabel_hora_salida = new javax.swing.JLabel();
+        jLabel_valor_pagar = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel_propietario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -151,104 +154,88 @@ public class FormMenu extends javax.swing.JFrame {
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setForeground(new java.awt.Color(255, 51, 51));
 
-        jPanel_retirar_vehiculo.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel_retirar_vehiculo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel_registrar_vehiculo.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_registrar_vehiculo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel9.setText("Retiro de Vehiculo del Parqueadero");
-        jPanel_retirar_vehiculo.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 250, 30));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel2.setText("Registro de ingreso de vehiculos al parqueadero");
+        jPanel_registrar_vehiculo.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, -1, -1));
 
-        jLabel_info.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel_info.setForeground(new java.awt.Color(0, 255, 255));
-        jLabel_info.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_info.setText("Vehiculo Retirado");
-        jPanel_retirar_vehiculo.add(jLabel_info, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 250, 30));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel3.setText("Placa:");
+        jPanel_registrar_vehiculo.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, -1, 30));
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel10.setText("Placa:");
-        jPanel_retirar_vehiculo.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 100, 30));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel4.setText("Propietario:");
+        jPanel_registrar_vehiculo.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, -1, 30));
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel11.setText("Propietario:");
-        jPanel_retirar_vehiculo.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 100, 30));
+        jtext4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jtext4.setForeground(new java.awt.Color(255, 51, 51));
+        jtext4.setText("Tipo cliente:");
+        jPanel_registrar_vehiculo.add(jtext4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, -1, 30));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel12.setText("Hora Entrada:");
-        jPanel_retirar_vehiculo.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 100, 30));
-
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel13.setText("Hora Salida:");
-        jPanel_retirar_vehiculo.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 100, 30));
-
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel14.setText("Valor a Pagar:");
-        jPanel_retirar_vehiculo.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 100, 30));
-
-        jTextField_placa_retiro.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jTextField_placa_retiro.setForeground(new java.awt.Color(0, 102, 102));
-        jTextField_placa_retiro.addActionListener(new java.awt.event.ActionListener() {
+        jTextField_placa.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jTextField_placa.setForeground(new java.awt.Color(0, 102, 102));
+        jTextField_placa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_placa_retiroActionPerformed(evt);
+                jTextField_placaActionPerformed(evt);
             }
         });
-        jPanel_retirar_vehiculo.add(jTextField_placa_retiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 125, 30));
-
-        jButton_buscar_placa.setBackground(new java.awt.Color(0, 0, 0));
-        jButton_buscar_placa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton_buscar_placa.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_buscar_placa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lupa.png"))); // NOI18N
-        jButton_buscar_placa.setText("BUSCAR");
-        jButton_buscar_placa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_buscar_placaActionPerformed(evt);
+        jTextField_placa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField_placaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_placaKeyReleased(evt);
             }
         });
-        jPanel_retirar_vehiculo.add(jButton_buscar_placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, 125, 30));
+        jPanel_registrar_vehiculo.add(jTextField_placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 230, 30));
 
-        jButton_retirar.setBackground(new java.awt.Color(0, 0, 0));
-        jButton_retirar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton_retirar.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_retirar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/coche.png"))); // NOI18N
-        jButton_retirar.setText("RETIRAR");
-        jButton_retirar.addActionListener(new java.awt.event.ActionListener() {
+        jTextField_propietario.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jTextField_propietario.setForeground(new java.awt.Color(0, 102, 102));
+        jPanel_registrar_vehiculo.add(jTextField_propietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 230, 30));
+
+        jComboBox_tipo_vehiculo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jComboBox_tipo_vehiculo.setForeground(new java.awt.Color(255, 51, 51));
+        jComboBox_tipo_vehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione:", "Motocicleta", "Automovil" }));
+        jComboBox_tipo_vehiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_retirarActionPerformed(evt);
+                jComboBox_tipo_vehiculoActionPerformed(evt);
             }
         });
-        jPanel_retirar_vehiculo.add(jButton_retirar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 250, 30));
+        jPanel_registrar_vehiculo.add(jComboBox_tipo_vehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 230, 30));
 
-        jLabel_propietario.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        jLabel_propietario.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel_propietario.setText("ALGUIEN");
-        jPanel_retirar_vehiculo.add(jLabel_propietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 200, 30));
+        jButton_registrar.setBackground(new java.awt.Color(255, 51, 51));
+        jButton_registrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton_registrar.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_registrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/coche-revisado.png"))); // NOI18N
+        jButton_registrar.setText("REGISTRAR");
+        jButton_registrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_registrarActionPerformed(evt);
+            }
+        });
+        jPanel_registrar_vehiculo.add(jButton_registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 260, 230, 30));
 
-        jLabel_hora_entrada.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        jLabel_hora_entrada.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel_hora_entrada.setText("00:00:00");
-        jPanel_retirar_vehiculo.add(jLabel_hora_entrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, 200, 30));
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel8.setText("Tipo de vehiculo:");
+        jPanel_registrar_vehiculo.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, -1, 30));
 
-        jLabel_footer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel_footer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_footer.setText("Desarrollado por grupo 5");
-        jPanel_retirar_vehiculo.add(jLabel_footer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 600, 30));
+        jCombo_tipoCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jCombo_tipoCliente.setForeground(new java.awt.Color(255, 51, 51));
+        jCombo_tipoCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ninguno", "Discapacitado", "Recurrente" }));
+        jCombo_tipoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCombo_tipoClienteActionPerformed(evt);
+            }
+        });
+        jPanel_registrar_vehiculo.add(jCombo_tipoCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 230, 30));
 
-        jLabel_hora_salida.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        jLabel_hora_salida.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel_hora_salida.setText("00:00:00");
-        jPanel_retirar_vehiculo.add(jLabel_hora_salida, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, 200, 30));
-
-        jLabel_valor_pagar.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        jLabel_valor_pagar.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel_valor_pagar.setText("S/ 0.00");
-        jPanel_retirar_vehiculo.add(jLabel_valor_pagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, 200, 30));
-
-        jTabbedPane1.addTab("Retirar Vehiculo", jPanel_retirar_vehiculo);
+        jTabbedPane1.addTab("Registrar Vehiculo", jPanel_registrar_vehiculo);
 
         jPanel_administrar_vehiculos.setBackground(new java.awt.Color(255, 255, 255));
         jPanel_administrar_vehiculos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -301,74 +288,6 @@ public class FormMenu extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Administrar Vehiculo", jPanel_administrar_vehiculos);
 
-        jPanel_registrar_vehiculo.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel_registrar_vehiculo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel2.setText("Registro de ingreso de vehiculos al parqueadero");
-        jPanel_registrar_vehiculo.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, -1, -1));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel3.setText("Placa:");
-        jPanel_registrar_vehiculo.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, -1, 30));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel4.setText("Propietario:");
-        jPanel_registrar_vehiculo.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, -1, 30));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel5.setText("Tipo de vehiculo:");
-        jPanel_registrar_vehiculo.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, -1, 30));
-
-        jTextField_placa.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jTextField_placa.setForeground(new java.awt.Color(0, 102, 102));
-        jTextField_placa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_placaActionPerformed(evt);
-            }
-        });
-        jTextField_placa.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_placaKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_placaKeyReleased(evt);
-            }
-        });
-        jPanel_registrar_vehiculo.add(jTextField_placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 100, 230, 30));
-
-        jTextField_propietario.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jTextField_propietario.setForeground(new java.awt.Color(0, 102, 102));
-        jPanel_registrar_vehiculo.add(jTextField_propietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 230, 30));
-
-        jComboBox_tipo_vehiculo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jComboBox_tipo_vehiculo.setForeground(new java.awt.Color(255, 51, 51));
-        jComboBox_tipo_vehiculo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione:", "Automovil", "Motocicleta" }));
-        jComboBox_tipo_vehiculo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox_tipo_vehiculoActionPerformed(evt);
-            }
-        });
-        jPanel_registrar_vehiculo.add(jComboBox_tipo_vehiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 230, 30));
-
-        jButton_registrar.setBackground(new java.awt.Color(255, 51, 51));
-        jButton_registrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton_registrar.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_registrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/coche-revisado.png"))); // NOI18N
-        jButton_registrar.setText("REGISTRAR");
-        jButton_registrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_registrarActionPerformed(evt);
-            }
-        });
-        jPanel_registrar_vehiculo.add(jButton_registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, 230, 30));
-
-        jTabbedPane1.addTab("Registrar Vehiculo", jPanel_registrar_vehiculo);
-
         jPanel_Graficoss.setBackground(new java.awt.Color(255, 255, 255));
 
         jButton_TipoVehiculo.setBackground(new java.awt.Color(255, 51, 51));
@@ -393,6 +312,17 @@ public class FormMenu extends javax.swing.JFrame {
             }
         });
         jPanel_Graficoss.add(jButton_Consulta);
+
+        jButton_tipoCliente.setBackground(new java.awt.Color(255, 51, 51));
+        jButton_tipoCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton_tipoCliente.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_tipoCliente.setText("Tipo Cliente");
+        jButton_tipoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_tipoClienteActionPerformed(evt);
+            }
+        });
+        jPanel_Graficoss.add(jButton_tipoCliente);
 
         jButton_ExportarExcel.setBackground(new java.awt.Color(255, 51, 51));
         jButton_ExportarExcel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -425,7 +355,120 @@ public class FormMenu extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Graficos", jPanel_Graficoss);
 
-        jPanel2.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 600, 340));
+        jPanel_retirar_vehiculo.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_retirar_vehiculo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel9.setText("Retiro de Vehiculo del Parqueadero");
+        jPanel_retirar_vehiculo.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 250, 30));
+
+        jLabel_info.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel_info.setForeground(new java.awt.Color(0, 255, 255));
+        jLabel_info.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_info.setText("Vehiculo Retirado");
+        jPanel_retirar_vehiculo.add(jLabel_info, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 250, 30));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel10.setText("Placa:");
+        jPanel_retirar_vehiculo.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 100, 30));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel11.setText("Propietario:");
+        jPanel_retirar_vehiculo.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 100, 30));
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel12.setText("Hora Entrada:");
+        jPanel_retirar_vehiculo.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, 100, 30));
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel13.setText("Hora Salida:");
+        jPanel_retirar_vehiculo.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 100, 30));
+
+        jTextField_placa_retiro.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jTextField_placa_retiro.setForeground(new java.awt.Color(0, 102, 102));
+        jTextField_placa_retiro.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                jTextField_placa_retiroAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jTextField_placa_retiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_placa_retiroActionPerformed(evt);
+            }
+        });
+        jTextField_placa_retiro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_placa_retiroKeyReleased(evt);
+            }
+        });
+        jPanel_retirar_vehiculo.add(jTextField_placa_retiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, 125, 30));
+
+        jButton_buscar_placa.setBackground(new java.awt.Color(0, 0, 0));
+        jButton_buscar_placa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton_buscar_placa.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_buscar_placa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/lupa.png"))); // NOI18N
+        jButton_buscar_placa.setText("BUSCAR");
+        jButton_buscar_placa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_buscar_placaActionPerformed(evt);
+            }
+        });
+        jPanel_retirar_vehiculo.add(jButton_buscar_placa, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 125, 30));
+
+        jButton_retirar.setBackground(new java.awt.Color(0, 0, 0));
+        jButton_retirar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton_retirar.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_retirar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/coche.png"))); // NOI18N
+        jButton_retirar.setText("RETIRAR");
+        jButton_retirar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_retirarActionPerformed(evt);
+            }
+        });
+        jPanel_retirar_vehiculo.add(jButton_retirar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 250, 30));
+
+        jLabel_hora_entrada.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel_hora_entrada.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel_hora_entrada.setText("00:00:00");
+        jPanel_retirar_vehiculo.add(jLabel_hora_entrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 200, 30));
+
+        jLabel_footer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel_footer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_footer.setText("Desarrollado por grupo 5");
+        jPanel_retirar_vehiculo.add(jLabel_footer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 600, 30));
+
+        jLabel_hora_salida.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel_hora_salida.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel_hora_salida.setText("00:00:00");
+        jPanel_retirar_vehiculo.add(jLabel_hora_salida, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 200, 30));
+
+        jLabel_valor_pagar.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel_valor_pagar.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel_valor_pagar.setText("S/ 0.00");
+        jPanel_retirar_vehiculo.add(jLabel_valor_pagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, 200, 30));
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel15.setText("Valor a Pagar:");
+        jPanel_retirar_vehiculo.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 100, 30));
+
+        jLabel_propietario.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        jLabel_propietario.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel_propietario.setText("ALGUIEN");
+        jPanel_retirar_vehiculo.add(jLabel_propietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 200, 30));
+
+        jTabbedPane1.addTab("Retirar Vehiculo", jPanel_retirar_vehiculo);
+
+        jPanel2.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 600, 340));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 650, 380));
 
@@ -453,7 +496,7 @@ public class FormMenu extends javax.swing.JFrame {
     } else {
         String tipo_vehiculo = jComboBox_tipo_vehiculo.getSelectedItem().toString().trim();
         if (tipo_vehiculo.equalsIgnoreCase("Seleccione:")) {
-            JOptionPane.showMessageDialog(null, "Seleccione un tipo de vehiculo");
+            JOptionPane.showMessageDialog(null, "Seleccione un tipo de vehículo");
         } else {
             VehiculoController controlVehiculo = new VehiculoController();
             Vehiculo vehiculo = new Vehiculo();
@@ -461,6 +504,11 @@ public class FormMenu extends javax.swing.JFrame {
             vehiculo.setPropietario(propietario);
             vehiculo.setTipoVehiculo(tipo_vehiculo);
 
+            // TIPO DE CLIENTE
+            String tipo_cliente = jCombo_tipoCliente.getSelectedItem().toString().trim(); // 👈 asegúrate que este JCombo exista
+            vehiculo.setTipoCliente(tipo_cliente);
+
+            // FECHA Y ESTADO
             DateFormat dateFormatFecha = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Calendar calendar = Calendar.getInstance();
             Date date = calendar.getTime();
@@ -470,23 +518,22 @@ public class FormMenu extends javax.swing.JFrame {
             vehiculo.setHoraSalida(null);
             vehiculo.setEstado("INGRESADO");
 
-            // 👇 ESTA ES LA LÍNEA QUE FALTABA
             vehiculo.setIdUsuario(usuarioActual.getIdUsuario());
 
-            // Validación
             if (vehiculo.getIdUsuario() <= 0) {
                 JOptionPane.showMessageDialog(null, "ERROR: No se ha establecido un usuario válido.");
                 return;
             }
 
             if (controlVehiculo.guardar(vehiculo)) {
-                JOptionPane.showMessageDialog(null, "**Vehiculo ingresado correctamente**");
+                JOptionPane.showMessageDialog(null, "**Vehículo ingresado correctamente**");
                 this.cargarTablaVehiculos();
                 jTextField_placa.setText("");
                 jTextField_propietario.setText("");
                 jComboBox_tipo_vehiculo.setSelectedItem("Seleccione:");
+                jCombo_tipoCliente.setSelectedItem("Ninguno");
             } else {
-                JOptionPane.showMessageDialog(null, "ERROR al ingresar el registro del vehiculo");
+                JOptionPane.showMessageDialog(null, "ERROR al ingresar el registro del vehículo");
             }
         }
     }
@@ -523,18 +570,20 @@ public class FormMenu extends javax.swing.JFrame {
             model.addColumn("N°");
             model.addColumn("Placa");
             model.addColumn("Propietario");
+            model.addColumn("Tipo Cliente");
             model.addColumn("Tipo de Vehiculo");
             model.addColumn("Valor pagado");
             model.addColumn("Estado");
 
-            Object fila[] = new Object[6];
+            Object fila[] = new Object[7];
             for (Vehiculo vehiculo : listaVehiculo) {
                 fila[0] = vehiculo.getIdVehiculo();
                 fila[1] = vehiculo.getPlaca();
                 fila[2] = vehiculo.getPropietario();
-                fila[3] = vehiculo.getTipoVehiculo();
-                fila[4] = vehiculo.getValorPagado();
-                fila[5] = vehiculo.getEstado();
+                fila[3] = vehiculo.getTipoCliente();
+                fila[4] = vehiculo.getTipoVehiculo();
+                fila[5] = vehiculo.getValorPagado();
+                fila[6] = vehiculo.getEstado();
                 model.addRow(fila);
 
             }
@@ -560,90 +609,102 @@ public class FormMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_buscarActionPerformed
 
     private void jButton_buscar_placaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscar_placaActionPerformed
-       String placaBuscar=jTextField_placa_retiro.getText().trim();
-       String estado="", salida="";
-       double valor = 0.00;
-       
-       if(placaBuscar.isEmpty()){
-           JOptionPane.showMessageDialog(null,"Ingrese una placa");
-       }else{
-           Connection cn = Conexion.conectar();
-           String sql = "select * from tb_vehiculo where placa = '" + placaBuscar + "'";
-           Statement st;
-           
-           DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-           Calendar calendar = Calendar.getInstance();
-           Date date = calendar.getTime();
-           
-           try{
-               st=cn.createStatement();
-               ResultSet rs = st.executeQuery(sql);
-               
-               if(rs.next()){
-                   idVehiculo =rs.getInt("id_vehiculo");
-                   jLabel_propietario.setText(rs.getString("propietario"));
-                   jLabel_hora_entrada.setText(rs.getString("hora_entrada"));
-                   salida = rs.getString("hora_salida");
-                   valor = rs.getDouble("valor_pagado");
-                   estado= rs.getString("estado");
-                   
-                   String tiempoIngresado = rs.getString("hora_entrada");
-                   Date tiempo =dateFormat.parse(tiempoIngresado);
-                   int minutosACobrar = (int)(date.getTime() - tiempo.getTime()) / 60000;
-                   int horas = minutosACobrar / 60;
-                   int minutosExtra = minutosACobrar % 60;
-                   if (rs.getString("tipo_vehiculo").equals("Automovil")) {
-                        if (horas == 0) {
-                           valorAPagar = 0.50;
-                        } else {
-                            // Si los minutos extra son mayores a 15, se suma una hora más
-                            if (minutosExtra > 15) {
-                                horas += 1;
-                            }
-                            valorAPagar = horas * 0.50;
-                        }
-                    } else if (rs.getString("tipo_vehiculo").equals("Motocicleta")) {
-                        if (horas == 0) {
-                            valorAPagar = 0.25;
-                        } else {
-                            if (minutosExtra > 15) {
-                                horas += 1;
-                            }
-                            valorAPagar = horas * 0.25;
-                        }
+       String placaBuscar = jTextField_placa_retiro.getText().trim();
+    String estado = "", salida = "";
+    double valor = 0.00;
+
+    if (placaBuscar.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Ingrese una placa");
+    } else {
+        Connection cn = Conexion.conectar();
+        String sql = "SELECT * FROM tb_vehiculo WHERE placa = '" + placaBuscar + "'";
+        Statement st;
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+
+        try {
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                idVehiculo = rs.getInt("id_vehiculo");
+                jLabel_propietario.setText(rs.getString("propietario"));
+                jComboBox_tipo_vehiculo.setSelectedItem(rs.getString("tipo_cliente"));
+                jLabel_hora_entrada.setText(rs.getString("hora_entrada"));
+                salida = rs.getString("hora_salida");
+                valor = rs.getDouble("valor_pagado");
+                estado = rs.getString("estado");
+
+                String tipoVehiculo = rs.getString("tipo_vehiculo");
+                String tipoCliente = rs.getString("cliente");
+                String tiempoIngresado = rs.getString("hora_entrada");
+                Date tiempo = dateFormat.parse(tiempoIngresado);
+                int minutosACobrar = (int) (date.getTime() - tiempo.getTime()) / 60000;
+                int horas = minutosACobrar / 60;
+                int minutosExtra = minutosACobrar % 60;
+
+                //Aplica tolerancia de 15 minutos
+                if (horas == 0 && minutosExtra <= 15) {
+                    valorAPagar = 0.00;
+                } else {
+                    if (minutosExtra > 15) {
+                        horas += 1;
                     }
 
-                   
-                   String fecha = dateFormat.format(date);
-                   jLabel_hora_salida.setText(fecha);
-                   jLabel_valor_pagar.setText("S/ " + valorAPagar);
-                   if(estado.equalsIgnoreCase("EGRESADO")){
-                       jButton_retirar.setEnabled(false);
-                       jLabel_info.setVisible(true);
-                       jLabel_hora_salida.setText(salida);
-                       jLabel_valor_pagar.setText(String.valueOf(valor));
-                   }else{
-                       jButton_retirar.setEnabled(true);
-                       jLabel_info.setVisible(false);
-                       
-                       
-                   }
-                   
-               }else{
-                   JOptionPane.showMessageDialog(null,"PLACA NO REGISTRADA");
-                   jLabel_propietario.setText("");
-                   jLabel_hora_entrada.setText("00:00:00");
-                   jLabel_hora_salida.setText("00:00:00");
-                   jLabel_valor_pagar.setText("S/ 0.00");
-               }
-           }catch(SQLException e){
-               System.out.println("Error al buscar datos del vehiculo" + e);
-           } catch (ParseException ex) {
-               Logger.getLogger(FormMenu.class.getName()).log(Level.SEVERE, null, ex);
-           }
-           
-           
-       }
+                    //Tarifa base por tipo de vehículo
+                    if (tipoVehiculo.equals("Automovil")) {
+                        valorAPagar = horas * 5;
+                    } else if (tipoVehiculo.equals("Motocicleta")) {
+                        valorAPagar = horas * 2.5;
+                    }
+
+                    //Aplica descuento según tipo de cliente
+                    switch (tipoCliente.toUpperCase()) {
+                        case "Recurrente":
+                            valorAPagar *= 0.70; // 30% de descuento
+                            break;
+                        case "Discapacitado":
+                            valorAPagar *= 0.50; // 50% de descuento
+                            break;
+                        case "Ninguno":
+                        default:
+                            // Sin descuento
+                            break;
+                    }
+                }
+
+                //Mostrar hora de salida y valor a pagar
+                String fecha = dateFormat.format(date);
+                jLabel_hora_salida.setText(fecha);
+                jLabel_valor_pagar.setText("S/ " + String.format("%.2f", valorAPagar));
+
+                //Comprobar si ya egresó
+                if (estado.equalsIgnoreCase("EGRESADO")) {
+                    jButton_retirar.setEnabled(false);
+                    jLabel_info.setVisible(true);
+                    jLabel_hora_salida.setText(salida);
+                    jLabel_valor_pagar.setText("S/ " + String.format("%.2f", valor));
+                } else {
+                    jButton_retirar.setEnabled(true);
+                    jLabel_info.setVisible(false);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "PLACA NO REGISTRADA");
+                jLabel_propietario.setText("Nadie");
+                jLabel_hora_entrada.setText("00:00:00");
+                jLabel_hora_salida.setText("00:00:00");
+                jLabel_valor_pagar.setText("S/ 0.00");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al buscar datos del vehículo: " + e);
+        } catch (ParseException ex) {
+            Logger.getLogger(FormMenu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     }//GEN-LAST:event_jButton_buscar_placaActionPerformed
 
     private void jButton_retirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_retirarActionPerformed
@@ -667,7 +728,6 @@ public class FormMenu extends javax.swing.JFrame {
             this.cargarTablaVehiculos();
 
             jTextField_placa_retiro.setText("");
-            jLabel_propietario.setText("");
             jLabel_hora_entrada.setText("00:00:00");
             jLabel_hora_salida.setText("00:00:00");
             jLabel_valor_pagar.setText("S/ 0.00");
@@ -744,7 +804,17 @@ public class FormMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_ConsultaActionPerformed
 
     private void jTextField_placa_retiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_placa_retiroActionPerformed
+        String texto = jTextField_placa.getText().replace("-", "").toUpperCase();
 
+    if (texto.length() > 6) {
+        texto = texto.substring(0, 6); // Limita a 6 caracteres
+    }
+
+    if (texto.length() >= 3) {
+        texto = texto.substring(0, 3) + "-" + texto.substring(3);
+    }
+
+    jTextField_placa.setText(texto);
     }//GEN-LAST:event_jTextField_placa_retiroActionPerformed
 
     private void jTextField_placaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_placaActionPerformed
@@ -848,6 +918,53 @@ public class FormMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton_ExportarExcelActionPerformed
 
+    private void jTextField_placa_retiroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_placa_retiroKeyReleased
+        String texto = jTextField_placa.getText().replace("-", "").toUpperCase();
+
+    if (texto.length() > 6) {
+        texto = texto.substring(0, 6); // Limita a 6 caracteres
+    }
+
+    if (texto.length() >= 3) {
+        texto = texto.substring(0, 3) + "-" + texto.substring(3);
+    }
+
+    jTextField_placa.setText(texto);
+    }//GEN-LAST:event_jTextField_placa_retiroKeyReleased
+
+    private void jCombo_tipoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCombo_tipoClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCombo_tipoClienteActionPerformed
+
+    private void jButton_tipoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_tipoClienteActionPerformed
+       Map<String, Double> dataMap = new LinkedHashMap<>();
+    StringBuilder resumenPorTipo = new StringBuilder();
+
+    try {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehiculos", "root", "");
+        Statement st = con.createStatement();
+        ResultSet rs = st.executeQuery("SELECT tipo_cliente, COUNT(*) AS cantidad FROM tb_vehiculo GROUP BY tipo_cliente");
+
+        while (rs.next()) {
+            String tipoCliente = rs.getString("tipo_cliente");
+            int cantidad = rs.getInt("cantidad");
+
+            resumenPorTipo.append(tipoCliente).append(": ").append(cantidad).append("\n");
+
+            dataMap.put(tipoCliente, (double) cantidad);
+        }
+
+        mostrarGraficoEnPanel(dataMap, "Cantidad por Tipo de Cliente", resumenPorTipo.toString(), false);
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al generar gráfico de tipos de cliente:\n" + e.getMessage());
+    } 
+    }//GEN-LAST:event_jButton_tipoClienteActionPerformed
+
+    private void jTextField_placa_retiroAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTextField_placa_retiroAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_placa_retiroAncestorAdded
+
     /**
      * @param args the command line arguments
      */
@@ -893,20 +1010,22 @@ public class FormMenu extends javax.swing.JFrame {
     private javax.swing.JButton jButton_cerrar_sesion;
     private javax.swing.JButton jButton_registrar;
     private javax.swing.JButton jButton_retirar;
+    private javax.swing.JButton jButton_tipoCliente;
     private javax.swing.JComboBox<String> jComboBox_tipo_vehiculo;
+    private javax.swing.JComboBox<String> jCombo_tipoCliente;
     private com.toedter.calendar.JDateChooser jDateChooser_fecha_busqueda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel_footer;
     private javax.swing.JLabel jLabel_hora_entrada;
@@ -930,12 +1049,13 @@ public class FormMenu extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_placa;
     private javax.swing.JTextField jTextField_placa_retiro;
     private javax.swing.JTextField jTextField_propietario;
+    private javax.swing.JLabel jtext4;
     // End of variables declaration//GEN-END:variables
 
     private void cargarTablaVehiculos() {
     Connection cn = Conexion.conectar();
     DefaultTableModel model = new DefaultTableModel();
-    String sql = "SELECT v.id_vehiculo, v.placa, v.propietario, v.tipo_vehiculo, v.valor_pagado, v.estado, u.usuario AS registrado_por " +
+    String sql = "SELECT v.id_vehiculo, v.placa, v.propietario, v.tipo_vehiculo,v.tipo_cliente, v.valor_pagado, v.estado, u.usuario AS registrado_por " +
                  "FROM tb_vehiculo v INNER JOIN tb_usuario u ON v.id_usuario = u.id_usuario";
     Statement st;
     try {
@@ -948,13 +1068,14 @@ public class FormMenu extends javax.swing.JFrame {
         model.addColumn("Placa");
         model.addColumn("Propietario");
         model.addColumn("Tipo de vehiculo");
+        model.addColumn("Tipo de cliente");
         model.addColumn("Valor pagado");
         model.addColumn("Estado");
         model.addColumn("Registrado por");
 
         while (rs.next()) {
-            Object fila[] = new Object[7];
-            for (int i = 0; i < 7; i++) {
+            Object fila[] = new Object[8];
+            for (int i = 0; i < 8; i++) {
                 fila[i] = rs.getObject(i + 1);
             }
             model.addRow(fila);
@@ -994,6 +1115,7 @@ public class FormMenu extends javax.swing.JFrame {
                 DetalleVehiculo.jLabel_hora_salida_detalle.setText(rs.getString("hora_salida"));
                 DetalleVehiculo.jLabel_valor_pagado_detalle.setText(rs.getString("valor_pagado"));
                 DetalleVehiculo.jLabel_tipo_vehiculo_detalle.setText(rs.getString("tipo_vehiculo"));
+                DetalleVehiculo.jLabel_tipo_vehiculo_detalle.setText(rs.getString("tipo_cliente"));
                 DetalleVehiculo.jLabel_estado_detalle.setText(rs.getString("estado"));
             }
 

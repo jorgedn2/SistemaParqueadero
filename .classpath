@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="dist/lib/AbsoluteLayout.jar"/>
+	<classpathentry kind="lib" path="dist/lib/commons-collections4-4.4.jar"/>
+	<classpathentry kind="lib" path="dist/lib/commons-compress-1.21.jar"/>
+	<classpathentry kind="lib" path="dist/lib/commons-io-2.11.0.jar"/>
+	<classpathentry kind="lib" path="dist/lib/guava-32.0.1-jre.jar"/>
+	<classpathentry kind="lib" path="dist/lib/itextpdf-5.5.13.3.jar"/>
+	<classpathentry kind="lib" path="dist/lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="dist/lib/log4j-api-2.20.0.jar"/>
+	<classpathentry kind="lib" path="dist/lib/log4j-core-2.20.0.jar"/>
+	<classpathentry kind="lib" path="dist/lib/logback-classic-1.4.11.jar"/>
+	<classpathentry kind="lib" path="dist/lib/logback-core-1.4.11.jar"/>
+	<classpathentry kind="lib" path="dist/lib/mysql-connector-java-5.1.46-bin.jar"/>
+	<classpathentry kind="lib" path="dist/lib/ooxml-schemas-1.4.jar"/>
+	<classpathentry kind="lib" path="dist/lib/poi-5.2.3.jar"/>
+	<classpathentry kind="lib" path="dist/lib/poi-ooxml-5.2.3.jar"/>
+	<classpathentry kind="lib" path="dist/lib/poi-ooxml-lite-5.2.3.jar"/>
+	<classpathentry kind="lib" path="dist/lib/slf4j-api-2.0.9.jar"/>
+	<classpathentry kind="lib" path="dist/lib/xmlbeans-5.1.1.jar"/>
+	<classpathentry kind="lib" path="dist/SistemaParqueadero.jar"/>
+	<classpathentry kind="lib" path="lib/absolutelayout/AbsoluteLayout.jar"/>
+	<classpathentry kind="lib" path="lib/CopyLibs/org-netbeans-modules-java-j2seproject-copylibstask.jar"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="optional" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="test" value="true"/>
+			<attribute name="optional" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

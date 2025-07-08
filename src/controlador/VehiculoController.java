@@ -16,18 +16,20 @@ public class VehiculoController {
     Connection cn = Conexion.conectar();
     try {
         PreparedStatement consulta = cn.prepareStatement(
-            "INSERT INTO tb_vehiculo (placa, propietario, tipo_vehiculo, hora_entrada, hora_salida, valor_pagado, estado, id_usuario) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO tb_vehiculo (placa, propietario, tipo_vehiculo, hora_entrada, hora_salida, valor_pagado, estado, tipo_cliente, id_usuario) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
 
-        consulta.setString(1, objeto.getPlaca());
-        consulta.setString(2, objeto.getPropietario());
-        consulta.setString(3, objeto.getTipoVehiculo());
-        consulta.setString(4, objeto.getHoraEntrada());
-        consulta.setString(5, objeto.getHoraSalida());
-        consulta.setDouble(6, objeto.getValorPagado());
-        consulta.setString(7, objeto.getEstado());
-        consulta.setInt(8, objeto.getIdUsuario());
+
+            consulta.setString(1, objeto.getPlaca());
+            consulta.setString(2, objeto.getPropietario());
+            consulta.setString(3, objeto.getTipoVehiculo());
+            consulta.setString(4, objeto.getHoraEntrada());
+            consulta.setString(5, objeto.getHoraSalida());
+            consulta.setDouble(6, objeto.getValorPagado());
+            consulta.setString(7, objeto.getEstado());
+            consulta.setString(8, objeto.getTipoCliente());
+            consulta.setInt(9, objeto.getIdUsuario());
 
 
         if (consulta.executeUpdate() > 0) {
@@ -79,6 +81,7 @@ public ArrayList<Vehiculo> buscarVehiculoPlacaFecha(String placaPropietario, Str
             vehiculo.setPlaca(rs.getString("placa"));
             vehiculo.setPropietario(rs.getString("propietario"));
             vehiculo.setTipoVehiculo(rs.getString("tipo_vehiculo"));
+            vehiculo.setTipoCliente(rs.getString("tipo_cliente"));
             vehiculo.setHoraEntrada(rs.getString("hora_entrada"));
             vehiculo.setHoraSalida(rs.getString("hora_salida"));
             vehiculo.setValorPagado(rs.getDouble("valor_pagado"));

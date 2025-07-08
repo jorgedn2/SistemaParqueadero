@@ -12,7 +12,7 @@ public class Vehiculo {
     private double valorPagado;
     private String estado;
     private int idUsuario;
-
+    private String tipoCliente;
     
     public Vehiculo(){
     this.idVehiculo = 0;
@@ -23,9 +23,9 @@ public class Vehiculo {
     this.horaSalida = "";
     this.valorPagado = 0.00;
     this.estado = "";
-    this.idUsuario = 0;     
+    this.idUsuario = 0;
+    this.tipoCliente = "Ninguno";
         }
-
 
     public int getIdVehiculo() {
         return idVehiculo;
@@ -90,7 +90,7 @@ public class Vehiculo {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-    
+
     public int getIdUsuario() {
         return idUsuario;
     }
@@ -99,11 +99,17 @@ public class Vehiculo {
         this.idUsuario = idUsuario;
     }
 
+    public String getTipoCliente() {
+        return tipoCliente;
+    }
+
+    public void setTipoCliente(String tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
 
     @Override
     public String toString() {
-        return "Vehiculo{" + "idVehiculo=" + idVehiculo + ", placa=" + placa + ", propietario=" + propietario + ", tipoVehiculo=" + tipoVehiculo + ", horaEntrada=" + horaEntrada + ", horaSalida=" + horaSalida + ", valorPagado=" + valorPagado + ", estado=" + estado + '}';
+        return "Vehiculo{" + "idVehiculo=" + idVehiculo + ", placa=" + placa + ", propietario=" + propietario + ", tipoVehiculo=" + tipoVehiculo + ", horaEntrada=" + horaEntrada + ", horaSalida=" + horaSalida + ", valorPagado=" + valorPagado + ", estado=" + estado + ", idUsuario=" + idUsuario + ", tipoCliente=" + tipoCliente + '}';
     }
-    
-    
+
 }
