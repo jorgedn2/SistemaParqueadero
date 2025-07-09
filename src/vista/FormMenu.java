@@ -838,7 +838,7 @@ public class FormMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_placaKeyReleased
 
     private void jButton_ExportarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExportarExcelActionPerformed
-try {
+        try {
         Connection cn = Conexion.conectar();
         Workbook workbook = new XSSFWorkbook();
 
@@ -863,59 +863,68 @@ try {
             row.createCell(4).setCellValue(rs1.getString("estado"));
         }
 
-        // HOJA 2: Resumen Tipos (Vehículos y Usuarios)
-        Sheet sheetResumenTipos = workbook.createSheet("Resumen Tipos");
+        // HOJA ÚNICA: Resumen total (vehículos, clientes, ingresos mensuales)
+        Sheet resumenSheet = workbook.createSheet("Resumen");
 
-        // Parte 1: Tipos de vehículos
-        Statement st2 = cn.createStatement();
-        ResultSet rs2 = st2.executeQuery("SELECT tipo_vehiculo, COUNT(*) as cantidad FROM tb_vehiculo GROUP BY tipo_vehiculo");
+        int resumenRow = 0;
 
-        Row header2 = sheetResumenTipos.createRow(0);
-        header2.createCell(0).setCellValue("Tipo de Vehículo");
-        header2.createCell(1).setCellValue("Cantidad");
+        // 1. Resumen por tipo de vehículo
+        Statement stVeh = cn.createStatement();
+        ResultSet rsVeh = stVeh.executeQuery("SELECT tipo_vehiculo, COUNT(*) as cantidad FROM tb_vehiculo GROUP BY tipo_vehiculo");
 
-        int rowIdx2 = 1;
-        while (rs2.next()) {
-            Row row = sheetResumenTipos.createRow(rowIdx2++);
-            row.createCell(0).setCellValue(rs2.getString("tipo_vehiculo"));
-            row.createCell(1).setCellValue(rs2.getInt("cantidad"));
+        Row headerVeh = resumenSheet.createRow(resumenRow++);
+        headerVeh.createCell(0).setCellValue("Resumen por Tipo de Vehículo");
+
+        Row encabezadoVeh = resumenSheet.createRow(resumenRow++);
+        encabezadoVeh.createCell(0).setCellValue("Tipo de Vehículo");
+        encabezadoVeh.createCell(1).setCellValue("Cantidad");
+
+        while (rsVeh.next()) {
+            Row row = resumenSheet.createRow(resumenRow++);
+            row.createCell(0).setCellValue(rsVeh.getString("tipo_vehiculo"));
+            row.createCell(1).setCellValue(rsVeh.getInt("cantidad"));
         }
 
-        // Espacio entre tablas
-        rowIdx2 += 2;
+        resumenRow += 2; // Espacio entre tablas
 
-        // Parte 2: Tipos de usuarios
-        Statement stUsuarios = cn.createStatement();
-        ResultSet rsUsuarios = stUsuarios.executeQuery("SELECT tipo_cliente, COUNT(*) AS cantidad FROM tb_vehiculo GROUP BY tipo_cliente");
+        // 2. Resumen por tipo de cliente
+        Statement stClientes = cn.createStatement();
+        ResultSet rsClientes = stClientes.executeQuery("SELECT tipo_cliente, COUNT(*) AS cantidad FROM tb_vehiculo GROUP BY tipo_cliente");
 
-        Row headerUsuarios = sheetResumenTipos.createRow(rowIdx2++);
-        headerUsuarios.createCell(0).setCellValue("Tipo de Cliente");
-        headerUsuarios.createCell(1).setCellValue("Cantidad");
+        Row headerCli = resumenSheet.createRow(resumenRow++);
+        headerCli.createCell(0).setCellValue("Resumen por Tipo de Cliente");
 
-        while (rsUsuarios.next()) {
-            Row row = sheetResumenTipos.createRow(rowIdx2++);
-            row.createCell(0).setCellValue(rsUsuarios.getString("tipo_cliente"));
-            row.createCell(1).setCellValue(rsUsuarios.getInt("cantidad"));
+        Row encabezadoCli = resumenSheet.createRow(resumenRow++);
+        encabezadoCli.createCell(0).setCellValue("Tipo de Cliente");
+        encabezadoCli.createCell(1).setCellValue("Cantidad");
+
+        while (rsClientes.next()) {
+            Row row = resumenSheet.createRow(resumenRow++);
+            row.createCell(0).setCellValue(rsClientes.getString("tipo_cliente"));
+            row.createCell(1).setCellValue(rsClientes.getInt("cantidad"));
         }
-        
-        rowIdx2 += 2;
 
-        Statement st3 = cn.createStatement();
-        ResultSet rs3 = st3.executeQuery("SELECT MONTH(hora_salida) AS mes, SUM(valor_pagado) AS total FROM tb_vehiculo WHERE estado = 'EGRESADO' GROUP BY mes ORDER BY mes");
+        resumenRow += 2;
 
-        Row header3 = sheetResumenTipos.createRow(0);
-        header3.createCell(0).setCellValue("Mes");
-        header3.createCell(1).setCellValue("Total Ganado (S/.)");
+        // 3. Resumen mensual de ingresos
+        Statement stMes = cn.createStatement();
+        ResultSet rsMes = stMes.executeQuery("SELECT MONTH(hora_salida) AS mes, SUM(valor_pagado) AS total FROM tb_vehiculo WHERE estado = 'EGRESADO' GROUP BY mes ORDER BY mes");
 
-        int rowIdx3 = 1;
-        while (rs3.next()) {
-            Row row = sheetResumenTipos.createRow(rowIdx3++);
-            int mes = rs3.getInt("mes");
-            double total = rs3.getDouble("total");
+        Row headerMes = resumenSheet.createRow(resumenRow++);
+        headerMes.createCell(0).setCellValue("Resumen Mensual de Ganancias");
 
-            String[] nombresMeses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+        Row encabezadoMes = resumenSheet.createRow(resumenRow++);
+        encabezadoMes.createCell(0).setCellValue("Mes");
+        encabezadoMes.createCell(1).setCellValue("Total Ganado (S/.)");
+
+        String[] nombresMeses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+
+        while (rsMes.next()) {
+            Row row = resumenSheet.createRow(resumenRow++);
+            int mes = rsMes.getInt("mes");
+            double total = rsMes.getDouble("total");
+
             String nombreMes = (mes >= 1 && mes <= 12) ? nombresMeses[mes - 1] : "Desconocido";
-
             row.createCell(0).setCellValue(nombreMes);
             row.createCell(1).setCellValue(total);
         }
