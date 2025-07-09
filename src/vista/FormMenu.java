@@ -34,14 +34,10 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.commons.io.output.UnsynchronizedByteArrayOutputStream;
-import org.apache.poi.ss.usermodel.ClientAnchor;
-import org.apache.poi.ss.usermodel.Drawing;
-import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xddf.usermodel.chart.AxisCrosses;
-import org.apache.poi.xddf.usermodel.chart.AxisPosition;
-import org.apache.poi.xddf.usermodel.chart.LegendPosition;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import com.google.common.base.Strings;
+import org.apache.commons.lang3.StringUtils;
 
 public class FormMenu extends javax.swing.JFrame {
 
@@ -485,57 +481,63 @@ public class FormMenu extends javax.swing.JFrame {
 
     private void jButton_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_registrarActionPerformed
     String placa = jTextField_placa.getText().trim().toUpperCase();
+    String propietario = jTextField_propietario.getText().trim();
 
     if (placa.length() == 6 && !placa.contains("-")) {
         placa = placa.substring(0, 3) + "-" + placa.substring(3);
     }
-    String propietario = jTextField_propietario.getText().trim();
 
-    if (placa.isEmpty() || propietario.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Ingrese los datos");
+    // Validar con Apache Commons Lang
+    if (StringUtils.isBlank(placa) || StringUtils.isBlank(propietario)) {
+        JOptionPane.showMessageDialog(null, "Ingrese la placa y el propietario");
+        return;
+    }
+
+    String tipo_vehiculo = jComboBox_tipo_vehiculo.getSelectedItem().toString().trim();
+    if (StringUtils.equalsIgnoreCase(tipo_vehiculo, "Seleccione:")) {
+        JOptionPane.showMessageDialog(null, "Seleccione un tipo de vehículo");
+        return;
+    }
+
+    // Crear objeto Vehiculo
+    VehiculoController controlVehiculo = new VehiculoController();
+    Vehiculo vehiculo = new Vehiculo();
+
+    vehiculo.setPlaca(placa);
+    vehiculo.setPropietario(propietario);
+    vehiculo.setTipoVehiculo(tipo_vehiculo);
+
+    // Tipo de Cliente
+    String tipo_cliente = jCombo_tipoCliente.getSelectedItem().toString().trim();
+    vehiculo.setTipoCliente(tipo_cliente);
+
+    // Fecha de entrada
+    DateFormat dateFormatFecha = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    Calendar calendar = Calendar.getInstance();
+    Date date = calendar.getTime();
+    String fecha = dateFormatFecha.format(date);
+
+    vehiculo.setHoraEntrada(fecha);
+    vehiculo.setHoraSalida(null);
+    vehiculo.setEstado("INGRESADO");
+
+    // Usuario que registra
+    vehiculo.setIdUsuario(usuarioActual.getIdUsuario());
+    if (vehiculo.getIdUsuario() <= 0) {
+        JOptionPane.showMessageDialog(null, "ERROR: No se ha establecido un usuario válido.");
+        return;
+    }
+
+    // Guardar vehículo
+    if (controlVehiculo.guardar(vehiculo)) {
+        JOptionPane.showMessageDialog(null, "**Vehículo ingresado correctamente**");
+        this.cargarTablaVehiculos();
+        jTextField_placa.setText("");
+        jTextField_propietario.setText("");
+        jComboBox_tipo_vehiculo.setSelectedItem("Seleccione:");
+        jCombo_tipoCliente.setSelectedItem("Ninguno");
     } else {
-        String tipo_vehiculo = jComboBox_tipo_vehiculo.getSelectedItem().toString().trim();
-        if (tipo_vehiculo.equalsIgnoreCase("Seleccione:")) {
-            JOptionPane.showMessageDialog(null, "Seleccione un tipo de vehículo");
-        } else {
-            VehiculoController controlVehiculo = new VehiculoController();
-            Vehiculo vehiculo = new Vehiculo();
-            vehiculo.setPlaca(placa);
-            vehiculo.setPropietario(propietario);
-            vehiculo.setTipoVehiculo(tipo_vehiculo);
-
-            // TIPO DE CLIENTE
-            String tipo_cliente = jCombo_tipoCliente.getSelectedItem().toString().trim(); // 👈 asegúrate que este JCombo exista
-            vehiculo.setTipoCliente(tipo_cliente);
-
-            // FECHA Y ESTADO
-            DateFormat dateFormatFecha = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            Calendar calendar = Calendar.getInstance();
-            Date date = calendar.getTime();
-            String fecha = dateFormatFecha.format(date);
-
-            vehiculo.setHoraEntrada(fecha);
-            vehiculo.setHoraSalida(null);
-            vehiculo.setEstado("INGRESADO");
-
-            vehiculo.setIdUsuario(usuarioActual.getIdUsuario());
-
-            if (vehiculo.getIdUsuario() <= 0) {
-                JOptionPane.showMessageDialog(null, "ERROR: No se ha establecido un usuario válido.");
-                return;
-            }
-
-            if (controlVehiculo.guardar(vehiculo)) {
-                JOptionPane.showMessageDialog(null, "**Vehículo ingresado correctamente**");
-                this.cargarTablaVehiculos();
-                jTextField_placa.setText("");
-                jTextField_propietario.setText("");
-                jComboBox_tipo_vehiculo.setSelectedItem("Seleccione:");
-                jCombo_tipoCliente.setSelectedItem("Ninguno");
-            } else {
-                JOptionPane.showMessageDialog(null, "ERROR al ingresar el registro del vehículo");
-            }
-        }
+        JOptionPane.showMessageDialog(null, "ERROR al ingresar el registro del vehículo");
     }
 
     }//GEN-LAST:event_jButton_registrarActionPerformed
@@ -747,34 +749,32 @@ public class FormMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_retirarActionPerformed
 
     private void jButton_TipoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_TipoVehiculoActionPerformed
+        //commons
+        Multimap<String, String> tipos = ArrayListMultimap.create();
         Map<String, Double> dataMap = new LinkedHashMap<>();
-    int totalCarros = 0;
-    int totalMotos = 0;
-    StringBuilder resumenPorTipo = new StringBuilder();
 
-    try {
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehiculos", "root", "");
-        Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT tipo_vehiculo, COUNT(*) AS cantidad FROM tb_vehiculo GROUP BY tipo_vehiculo");
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/vehiculos", "root", "");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT tipo_vehiculo FROM tb_vehiculo");
 
-        while (rs.next()) {
-            String tipo = rs.getString("tipo_vehiculo");
-            int cantidad = rs.getInt("cantidad");
-
-            if (tipo.equalsIgnoreCase("Automovil")) {
-                totalCarros = cantidad;
-            } else if (tipo.equalsIgnoreCase("Motocicleta")) {
-                totalMotos = cantidad;
+            while (rs.next()) {
+                String tipo = Strings.nullToEmpty(rs.getString("tipo_vehiculo")).trim();
+                tipos.put(tipo, tipo);
             }
 
-            dataMap.put(tipo, (double) cantidad);
+            int totalCarros = tipos.get("Automovil").size();
+            int totalMotos = tipos.get("Motocicleta").size();
+
+            dataMap.put("Automovil", (double) totalCarros);
+            dataMap.put("Motocicleta", (double) totalMotos);
+
+            String resumen = "Automóviles: " + totalCarros + " — Motocicletas: " + totalMotos;
+            mostrarGraficoEnPanel(dataMap, "Cantidad por Tipo de Vehículo", resumen, false);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar datos de tipos:\n" + e.getMessage());
         }
-
-        mostrarGraficoEnPanel(dataMap, "Cantidad por Tipo de Vehículo", resumenPorTipo.toString(), false);
-
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Error al generar gráfico de tipos de vehículos:\n" + e.getMessage());
-    }
     }//GEN-LAST:event_jButton_TipoVehiculoActionPerformed
 
     private void jButton_ConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ConsultaActionPerformed
@@ -838,9 +838,8 @@ public class FormMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_placaKeyReleased
 
     private void jButton_ExportarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExportarExcelActionPerformed
-        try {
+try {
         Connection cn = Conexion.conectar();
-
         Workbook workbook = new XSSFWorkbook();
 
         // HOJA 1: Lista de vehículos
@@ -864,8 +863,10 @@ public class FormMenu extends javax.swing.JFrame {
             row.createCell(4).setCellValue(rs1.getString("estado"));
         }
 
-        // HOJA 2: Resumen por tipo de vehículo
+        // HOJA 2: Resumen Tipos (Vehículos y Usuarios)
         Sheet sheetResumenTipos = workbook.createSheet("Resumen Tipos");
+
+        // Parte 1: Tipos de vehículos
         Statement st2 = cn.createStatement();
         ResultSet rs2 = st2.executeQuery("SELECT tipo_vehiculo, COUNT(*) as cantidad FROM tb_vehiculo GROUP BY tipo_vehiculo");
 
@@ -880,22 +881,38 @@ public class FormMenu extends javax.swing.JFrame {
             row.createCell(1).setCellValue(rs2.getInt("cantidad"));
         }
 
-        // HOJA 3: Ingreso mensual
-        Sheet sheetResumenMensual = workbook.createSheet("Resumen Mensual");
+        // Espacio entre tablas
+        rowIdx2 += 2;
+
+        // Parte 2: Tipos de usuarios
+        Statement stUsuarios = cn.createStatement();
+        ResultSet rsUsuarios = stUsuarios.executeQuery("SELECT tipo_cliente, COUNT(*) AS cantidad FROM tb_vehiculo GROUP BY tipo_cliente");
+
+        Row headerUsuarios = sheetResumenTipos.createRow(rowIdx2++);
+        headerUsuarios.createCell(0).setCellValue("Tipo de Cliente");
+        headerUsuarios.createCell(1).setCellValue("Cantidad");
+
+        while (rsUsuarios.next()) {
+            Row row = sheetResumenTipos.createRow(rowIdx2++);
+            row.createCell(0).setCellValue(rsUsuarios.getString("tipo_cliente"));
+            row.createCell(1).setCellValue(rsUsuarios.getInt("cantidad"));
+        }
+        
+        rowIdx2 += 2;
+
         Statement st3 = cn.createStatement();
         ResultSet rs3 = st3.executeQuery("SELECT MONTH(hora_salida) AS mes, SUM(valor_pagado) AS total FROM tb_vehiculo WHERE estado = 'EGRESADO' GROUP BY mes ORDER BY mes");
 
-        Row header3 = sheetResumenMensual.createRow(0);
+        Row header3 = sheetResumenTipos.createRow(0);
         header3.createCell(0).setCellValue("Mes");
         header3.createCell(1).setCellValue("Total Ganado (S/.)");
 
         int rowIdx3 = 1;
         while (rs3.next()) {
-            Row row = sheetResumenMensual.createRow(rowIdx3++);
+            Row row = sheetResumenTipos.createRow(rowIdx3++);
             int mes = rs3.getInt("mes");
             double total = rs3.getDouble("total");
 
-            // Convertir número de mes a nombre
             String[] nombresMeses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
             String nombreMes = (mes >= 1 && mes <= 12) ? nombresMeses[mes - 1] : "Desconocido";
 
@@ -912,10 +929,10 @@ public class FormMenu extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(this, "Archivo Excel generado correctamente en tu escritorio.");
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al exportar: " + e.getMessage());
-        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al exportar: " + e.getMessage());
+    }
     }//GEN-LAST:event_jButton_ExportarExcelActionPerformed
 
     private void jTextField_placa_retiroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_placa_retiroKeyReleased
@@ -1173,10 +1190,6 @@ public class FormMenu extends javax.swing.JFrame {
                 x += barWidth + spacing;
             }
 
-            // Resumen
-            g2.setColor(Color.BLUE);
-            g2.setFont(new Font("SansSerif", Font.BOLD, 13));
-            g2.drawString(resumenTexto, padding + 5, height - 5);
         }
 
         @Override
